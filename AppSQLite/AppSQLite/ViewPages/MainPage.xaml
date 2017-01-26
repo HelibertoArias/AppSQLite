@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppSQLite.ViewPages.MainPage"
+             xmlns:local="clr-namespace:AppSQLite.ViewModels; assembly=AppSQLite">
+
+  <StackLayout>
+    <Button Text="Cargar clientes" Command="{Binding CreataSampleDataCommand}" />
+
+    <ContentPage.BindingContext>
+      <local:MainViewModel/>
+    </ContentPage.BindingContext>
+    <!--<Entry  Text="{Binding LabelText}"></Entry>
+    <Label Text="{Binding LabelText}"/>-->
+    <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}" />
+
+
+
+    <ListView
+      x:Name="listView"
+      ItemsSource="{Binding Customers}">
+
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <TextCell  Text="{Binding FirstName}"/>          
+        </DataTemplate>
+      </ListView.ItemTemplate>
+
+
+    </ListView>
+    
+  </StackLayout>
+  
+  
+</ContentPage>

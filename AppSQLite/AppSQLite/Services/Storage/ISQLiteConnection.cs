@@ -1,7 +1,9 @@
-﻿namespace AppSQLite.Services.Storage
+﻿using SQLite;
+
+namespace AppSQLite.Services.Storage
 {
-    internal interface ISQLiteConnection
+    public  interface ISQLiteConnection
     {
-        SQLiteConnection GetConnection();
+        SQLiteAsyncConnection GetConnection();
     }
 }
