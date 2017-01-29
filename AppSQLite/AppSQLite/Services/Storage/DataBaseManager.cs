@@ -20,7 +20,7 @@ namespace AppSQLite.Services.Storage
         {
             database = DependencyService.Get<ISQLiteConnection>().GetConnection();
             //-->Add your entities here
-            database.CreateTableAsync<Customer>();
+            database.CreateTableAsync<Customer>().Wait();
         }
 
         public Task SaveOrUpdate<T>(T value) where T : IKeyObject, new()
