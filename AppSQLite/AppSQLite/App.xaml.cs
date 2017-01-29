@@ -7,10 +7,14 @@ namespace AppSQLite
     {
         #region Attributes
         static DataBaseManager db;
+
         #endregion
 
 
         #region Properties
+       // public static MasterPage Master { get; internal set; }
+
+        public static NavigationPage Navigator { get; internal set; }
 
         public static DataBaseManager DB
         {

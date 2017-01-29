@@ -10,11 +10,8 @@
     <ContentPage.BindingContext>
       <local:MainViewModel/>
     </ContentPage.BindingContext>
-    <!--<Entry  Text="{Binding LabelText}"></Entry>
-    <Label Text="{Binding LabelText}"/>-->
+
     <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}" />
-
-
 
     <ListView
       x:Name="listView"
@@ -22,14 +19,31 @@
 
       <ListView.ItemTemplate>
         <DataTemplate>
-          <TextCell  Text="{Binding FirstName}"/>          
+          <ViewCell>
+            <ViewCell.View>
+              <StackLayout Orientation="Horizontal">
+
+                <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
+    
+                  <Label Text="{Binding FullName}" HorizontalOptions="FillAndExpand" />
+                  
+                </StackLayout>
+              </StackLayout>
+            </ViewCell.View>
+          </ViewCell>
+
+
+
         </DataTemplate>
       </ListView.ItemTemplate>
-
-
     </ListView>
-    
+
   </StackLayout>
-  
-  
+
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Icon="ic_action_content_add_circle_outline"
+      Command="{Binding NewCustomerNavigationCommand}"/>
+  </ContentPage.ToolbarItems>
+
+
 </ContentPage>

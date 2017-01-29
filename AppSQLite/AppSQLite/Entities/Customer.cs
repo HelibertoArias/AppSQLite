@@ -17,5 +17,7 @@ namespace AppSQLite.Entities
 
         public string LastName { get; set; }
 
+        public string FullName { get { return $"{LastName} {FirstName} "; } }
+
     }
 }

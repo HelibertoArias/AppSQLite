@@ -40,8 +40,10 @@
     </Compile>
     <Compile Include="Constants.cs" />
     <Compile Include="Entities\Customer.cs" />
+    <Compile Include="Helpers\ObservableCollectionHelper.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Navigation\NavigationService.cs" />
     <Compile Include="Services\Storage\DataBaseManager.cs" />
     <Compile Include="Services\Storage\IKeyObject.cs" />
     <Compile Include="Services\Storage\ISQLiteConnection.cs" />
@@ -49,6 +51,9 @@
     <Compile Include="ViewModels\ObservableBaseObject.cs" />
     <Compile Include="ViewPages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPages\NewCustomerPage.xaml.cs">
+      <DependentUpon>NewCustomerPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +98,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ViewPages\MainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ViewPages\NewCustomerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

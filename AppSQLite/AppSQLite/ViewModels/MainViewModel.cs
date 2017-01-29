@@ -6,6 +6,10 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Linq;
+using AppSQLite.Services.Navigation;
+using static AppSQLite.Services.Navigation.NavigationService;
+using AppSQLite.Helpers;
+using System.Collections.Generic;
 
 namespace AppSQLite.ViewModels
 {
@@ -13,23 +17,28 @@ namespace AppSQLite.ViewModels
     {
 
 
-        private static DataBaseManager db;
-        private bool isRunning;
+        private static DataBaseManager _db;
+        private bool _isRunning;
+        private static NavigationService _navigationService; 
 
 
 
         public bool IsRunning
         {
-            get { return isRunning; }
+            get { return _isRunning; }
             set
             {
-                isRunning = value;
+                _isRunning = value;
                 OnPropertyChanged();
             }
         }
 
         public Command CreataSampleDataCommand { get; set; }
+
+        public Command NewCustomerNavigationCommand { get; set; }
+
         private string labelText;
+
         public string LabelText
         {
             set
@@ -45,46 +54,47 @@ namespace AppSQLite.ViewModels
         {
             get
             {
-                if (db == null)
+                if (_db == null)
                 {
-                    db = new DataBaseManager();
+                    _db = new DataBaseManager();
                 }
-                return db;
+                return _db;
             }
         }
 
-        private ObservableCollection<Customer> customers;
-
-        public ObservableCollection<Customer> Customers
+        public static NavigationService NavigationService
         {
-            get { return customers; }
-            set
-            {
-                customers = value;
-                OnPropertyChanged();
+            get {
+                if (_navigationService == null)
+                    _navigationService = new NavigationService();
+                return _navigationService;
             }
         }
+
+        public ObservableCollection<Customer> Customers { get; set; } = new ObservableCollection<Customer>();
+ 
 
 
         public MainViewModel()
         {
-            isRunning = false;
+            _isRunning = false;
 
             LabelText = "Texto inicial";
 
-            CreataSampleDataCommand = new Command((obj) => CreataSampleData());
-            Customers = new ObservableCollection<Customer>();
+            CreataSampleDataCommand = new Command((cmd) => CreataSampleData());
+            NewCustomerNavigationCommand = new Command((cmd) => NewCustomerNavigation());
         }
 
         private async void CreataSampleData()
         {
 
-            var rows = await DB.GetAll<Customer>();
-            if (rows.Count > 10)
-            {
-                Customers = new ObservableCollection<Customer>(rows.OrderBy(x => x.FirstName).ThenBy(x => x.LastName));
-                return;
-            }
+            //var rows = await DB.GetAll<Customer>();
+            //if (rows.Count > 10)
+            //{
+            //    //  Customers = new ObservableCollection<Customer>(rows.OrderBy(x => x.FirstName).ThenBy(x => x.LastName));
+            //    Customers.Sort(rows, x => x.FirstName);
+            //    return;
+            //}
 
 
             string[] firstNames = { "Jóse", "María", "Luís", "Lucas", "Matías", "Martín", "Lucho", "Josefa", "Karen", "Kate", "Pedro", "Marcho", "Yose", "Carlos", "Jaime", "Francisco", "Alfonso", "Ricardo", "Yuri", "Estafanni" };
@@ -99,31 +109,40 @@ namespace AppSQLite.ViewModels
 
             int i = 0;
 
-            while (i < 10)
+            while (i < 3)
             {
                 var customer = new Customer
                 {
-                    LastName = firstNames[rdn.Next(0, firstNamesLength)],
-                    FirstName = $"{lastNames[rdn.Next(0, lastNameLength)]} {lastNames[rdn.Next(0, lastNameLength)]}"
+                    FirstName = firstNames[rdn.Next(0, firstNamesLength)],
+                    LastName= $"{lastNames[rdn.Next(0, lastNameLength)]} {lastNames[rdn.Next(0, lastNameLength)]}"
                 };
 
                 var rowsQuery = await DB.GetAll<Customer>();
-                var existe = rowsQuery.Any(x => x.FirstName.Equals(customer.FirstName) && x.LastName.Equals(customer.LastName));
+                var existe = rowsQuery.Any(x => x.FirstName.Equals(customer.FirstName) 
+                                             && x.LastName.Equals(customer.LastName));
 
                 if (!existe)
                 {
                     IsRunning = true;
-                    await DB.SaveOrUpdate<Customer>(customer);
 
-                    Customers.Clear();
+                    await DB.SaveOrUpdate(customer);
 
-                    Customers = new ObservableCollection<Customer>( rowsQuery.OrderBy(x => x.FirstName).ThenBy(x => x.LastName));
+                    rowsQuery = await DB.GetAll<Customer>();
+                  
+                    Func<Customer, string> orderby = (x => x.LastName);
+
+                    Customers.Sort(rowsQuery, orderby);
 
                     await Task.Delay(1500);
                     i++;
                     IsRunning = false;
                 }
             }
+        }
+
+        private async void NewCustomerNavigation()
+        {
+           await  NavigationService.Navigate(Pages.NewCustomerPage);
         }
     }
 }
