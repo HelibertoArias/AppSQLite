@@ -4,12 +4,21 @@
              x:Class="AppSQLite.ViewPages.MainPage"
              xmlns:local="clr-namespace:AppSQLite.ViewModels; assembly=AppSQLite">
 
+  <ContentPage.BindingContext>
+    <local:MainViewModel/>
+  </ContentPage.BindingContext>
+  
   <StackLayout>
+    <SearchBar
+      Placeholder="Buscar..."
+      Text="{Binding Filter, Mode=TwoWay}"
+      SearchCommand="{Binding SearchCustomerCommand}">
+    </SearchBar>
+
+    
     <Button Text="Cargar clientes" Command="{Binding CreataSampleDataCommand}" />
 
-    <ContentPage.BindingContext>
-      <local:MainViewModel/>
-    </ContentPage.BindingContext>
+    
 
     <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}" />
 

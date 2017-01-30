@@ -21,13 +21,13 @@ namespace AppSQLite.Services.Navigation
         {
            // App.Master.IsPresented = false; /*Oculta el menú lateral al seleccionar*/
 
-            switch (page.ToString())
+            switch (page)
             {
-                case "NewCustomerPage":
+                case Pages.NewCustomerPage:
                     await App.Navigator.PushAsync(new NewCustomerPage()  );
                     break;
 
-                case "MainPage":
+                case Pages.MainPage:
                     await App.Navigator.PushAsync(new MainPage());
                     break;
 
