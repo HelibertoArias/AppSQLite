@@ -1,8 +1,11 @@
 ﻿using AppSQLite.Entities;
 using AppSQLite.Helpers;
+using AppSQLite.Models;
 using AppSQLite.Services.Navigation;
 using AppSQLite.Services.Storage;
+using AppSQLite.ViewPages;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,13 +16,30 @@ namespace AppSQLite.ViewModels
 {
     public class MainViewModel : ObservableBaseObject
     {
+        #region Attributes
         Func<Customer, string> orderby = (x => x.LastName);
 
         private static DataBaseManager _db;
+
         private bool _isRunning;
+
         private static NavigationService _navigationService;
+
         private string _filter;
 
+
+        private Command _creataSampleDataCommand { get; set; }
+
+        public Command _newCustomerNavigationCommand { get; set; }
+
+        public Command _searchCustomerCommand { get; set; }
+
+
+        #endregion
+
+
+
+        #region Properties
         public bool IsRunning
         {
             get { return _isRunning; }
@@ -37,26 +57,8 @@ namespace AppSQLite.ViewModels
             {
                 _filter = value;
                 OnPropertyChanged();
-                OnFilter();
+                OnFilterExecute();
             }
-        }
-
-        public Command CreataSampleDataCommand { get; set; }
-
-        public Command NewCustomerNavigationCommand { get; set; }
-
-        public Command SearchCustomerCommand { get; set; }
-
-        private string labelText;
-
-        public string LabelText
-        {
-            set
-            {
-                labelText = value;
-                OnPropertyChanged();
-            }
-            get { return labelText; }
         }
 
         public static DataBaseManager DB
@@ -81,21 +83,32 @@ namespace AppSQLite.ViewModels
             }
         }
 
-        public ObservableCollection<Customer> Customers { get; set; } = new ObservableCollection<Customer>();
+        public ObservableCollection<CustomerModel> Customers { get; set; } = new ObservableCollection<CustomerModel>();
 
+
+        #endregion
+
+
+
+        #region Commands
+        public Command CreataSampleDataCommand { get { return _creataSampleDataCommand = _creataSampleDataCommand ?? new Command(CreataSampleDataExecute); }  }
+
+        public Command NewCustomerNavigationCommand { get { return _newCustomerNavigationCommand = _newCustomerNavigationCommand ?? new Command(NewCustomerNavigationExecute); } }
+
+        public Command SearchCustomerCommand { get { return _searchCustomerCommand = _searchCustomerCommand ?? new Command(OnFilterExecute); } } 
+        #endregion
+
+
+
+        
 
         public MainViewModel()
         {
             _isRunning = false;
-
-            LabelText = "Texto inicial";
-
-            CreataSampleDataCommand = new Command((cmd) => CreataSampleData());
-            NewCustomerNavigationCommand = new Command((cmd) => NewCustomerNavigation());
-            SearchCustomerCommand = new Command((cmd) => OnFilter());
         }
 
-        private async void CreataSampleData()
+
+        private async void CreataSampleDataExecute()
         {
 
             string[] firstNames = { "Jóse", "María", "Luís", "Lucas", "Matías", "Martín", "Lucho", "Josefa", "Karen", "Kate", "Pedro", "Marcho", "Yose", "Carlos", "Jaime", "Francisco", "Alfonso", "Ricardo", "Yuri", "Estafanni" };
@@ -117,7 +130,8 @@ namespace AppSQLite.ViewModels
                     LastName = $"{lastNames[rdn.Next(0, lastNameLength)]} {lastNames[rdn.Next(0, lastNameLength)]}"
                 };
 
-                var rowsQuery = await DB.GetAll<Customer>();
+                var rowsQuery = await GetCustomers();
+
                 var existe = rowsQuery.Any(x => x.FirstName.Equals(customer.FirstName)
                                              && x.LastName.Equals(customer.LastName));
 
@@ -127,9 +141,7 @@ namespace AppSQLite.ViewModels
 
                     await DB.SaveOrUpdate(customer);
 
-                    rowsQuery = await DB.GetAll<Customer>();
-
-                    
+                    rowsQuery = await GetCustomers();
 
                     Customers.Sort(rowsQuery, orderby);
 
@@ -140,14 +152,15 @@ namespace AppSQLite.ViewModels
             }
         }
 
-        private async void NewCustomerNavigation()
+        private async void NewCustomerNavigationExecute()
         {
-            await NavigationService.Navigate(Pages.NewCustomerPage);
+            //await NavigationService.Navigate(Pages.NewCustomerPage);
+           await  App.Navigator.PushAsync(new NewCustomerPage());
         }
 
-        private async void OnFilter()
+        private async void OnFilterExecute()
         {
-            var records = await DB.GetAll<Customer>();
+            var records = await GetCustomers();
             if (!string.IsNullOrEmpty(Filter))
             {
                 records = records.Where(x => x.FirstName.Trim().ToLower().Contains(Filter.ToLower())
@@ -156,6 +169,29 @@ namespace AppSQLite.ViewModels
             }
 
             Customers.Sort(records, orderby);
+
+        }
+
+        private static async Task<List<CustomerModel>> GetCustomers()
+        {
+            var collection = await DB.GetAll<Customer>();
+            var collectionModel = new List<CustomerModel>();
+
+            foreach (var entity in collection)
+            {
+                collectionModel.Add(
+                                        new CustomerModel
+                                        {
+                                            FirstName = entity.FirstName,
+                                            LastName = entity.LastName,
+                                            Id = entity.Id,
+                                            DateBirth = entity.DateBirth,
+                                            DocumentNumber = entity.DocumentNumber
+                                        });
+            }
+
+            return collectionModel;
+
 
         }
     }

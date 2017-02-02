@@ -7,7 +7,7 @@
   <ContentPage.BindingContext>
     <local:MainViewModel/>
   </ContentPage.BindingContext>
-  
+
   <StackLayout>
     <SearchBar
       Placeholder="Buscar..."
@@ -15,10 +15,8 @@
       SearchCommand="{Binding SearchCustomerCommand}">
     </SearchBar>
 
-    
-    <Button Text="Cargar clientes" Command="{Binding CreataSampleDataCommand}" />
 
-    
+    <Button Text="Cargar clientes" Command="{Binding CreataSampleDataCommand}" />
 
     <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}" />
 
@@ -28,6 +26,23 @@
 
       <ListView.ItemTemplate>
         <DataTemplate>
+
+
+          <ImageCell
+                    ImageSource="{Binding Thumbnail}"
+                    Text="{Binding LastName}"
+                    TextColor="Black"
+                    Detail="{Binding FirstName}"
+                    DetailColor="Gray"/>
+
+          <!--
+          Use 
+            <TextCell Text="{Binding LastName}"
+                    TextColor="Black"
+                    Detail="{Binding FirstName}"
+                    DetailColor="Gray"/>
+            
+            or 
           <ViewCell>
             <ViewCell.View>
               <StackLayout Orientation="Horizontal">
@@ -39,7 +54,7 @@
                 </StackLayout>
               </StackLayout>
             </ViewCell.View>
-          </ViewCell>
+          </ViewCell>-->
 
 
 
