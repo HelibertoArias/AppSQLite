@@ -1,36 +1,9 @@
-﻿using AppSQLite.Services.Storage;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace AppSQLite
 {
     public partial class App : Application
     {
-        #region Attributes
-
-        private static DataBaseManager db;
-
-        #endregion Attributes
-
-        #region Properties
-
-        // public static MasterPage Master { get; internal set; }
-
-        public static NavigationPage Navigator { get; internal set; }
-
-        public static DataBaseManager DB
-        {
-            get
-            {
-                if (db != null)
-                {
-                    db = new DataBaseManager();
-                }
-                return db;
-            }
-        }
-
-        #endregion Properties
-
         #region Constructor
 
         public App()

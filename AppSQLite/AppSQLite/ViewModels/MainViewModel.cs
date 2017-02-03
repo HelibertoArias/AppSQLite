@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+
 namespace AppSQLite.ViewModels
 {
     public class MainViewModel : ObservableBaseObject
@@ -65,16 +66,6 @@ namespace AppSQLite.ViewModels
                     _db = new DataBaseManager();
                 }
                 return _db;
-            }
-        }
-
-        public static NavigationService NavigationService
-        {
-            get
-            {
-                if (_navigationService == null)
-                    _navigationService = new NavigationService();
-                return _navigationService;
             }
         }
 

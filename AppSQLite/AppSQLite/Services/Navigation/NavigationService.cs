@@ -10,6 +10,8 @@ namespace AppSQLite.Services.Navigation
     {
         private static NavigationService _instance;
 
+        private NavigationService() { }
+
         private IDictionary<Type, Type> viewModelRouting = new Dictionary<Type, Type>()
         {
             { typeof(MainViewModel),  typeof(MainView) },
