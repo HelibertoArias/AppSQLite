@@ -37,7 +37,7 @@ namespace AppSQLite
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new ViewPages.MainPage());
+            MainPage = new NavigationPage(new Views.MainView());
         }
 
         #endregion Constructor

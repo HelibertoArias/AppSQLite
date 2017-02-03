@@ -1,5 +1,5 @@
 ﻿using AppSQLite.ViewModels;
-using AppSQLite.ViewPages;
+using AppSQLite.Views;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
@@ -12,8 +12,8 @@ namespace AppSQLite.Services.Navigation
 
         private IDictionary<Type, Type> viewModelRouting = new Dictionary<Type, Type>()
         {
-            { typeof(MainViewModel),  typeof(MainPage) },
-            { typeof(NewCustomerViewModel), typeof(NewCustomerPage)}
+            { typeof(MainViewModel),  typeof(MainView) },
+            { typeof(NewCustomerViewModel), typeof(NewCustomerView)}
             /*
              * Add here your viewmodel-view...to call them you use
              * NavigationService.Instance.NavigateTo<NewCustomerViewModel>();
