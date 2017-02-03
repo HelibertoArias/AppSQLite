@@ -1,48 +1,59 @@
-﻿using AppSQLite.ViewPages;
+﻿using AppSQLite.ViewModels;
+using AppSQLite.ViewPages;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace AppSQLite.Services.Navigation
 {
     public class NavigationService
     {
-        public enum Pages {
-            MainPage,
-            NewCustomerPage
-        }
+        private static NavigationService _instance;
 
-
-        #region Methods
-
-        public async Task Navigate(Pages page)
+        private IDictionary<Type, Type> viewModelRouting = new Dictionary<Type, Type>()
         {
-           // App.Master.IsPresented = false; /*Oculta el menú lateral al seleccionar*/
+            { typeof(MainViewModel),  typeof(MainPage) },
+            { typeof(NewCustomerViewModel), typeof(NewCustomerPage)}
+            /*
+             * Add here your viewmodel-view...to call them you use
+             * NavigationService.Instance.NavigateTo<NewCustomerViewModel>();
+             */
+        };
 
-            switch (page)
+        public static NavigationService Instance
+        {
+            get
             {
-                case Pages.NewCustomerPage:
-                    await App.Navigator.PushAsync(new NewCustomerPage()  );
-                    break;
+                if (_instance == null)
+                {
+                    _instance = new NavigationService();
+                }
 
-                case Pages.MainPage:
-                    await App.Navigator.PushAsync(new MainPage());
-                    break;
-
-                default:
-                    break;
+                return _instance;
             }
         }
 
-
-        public async Task Back()
+        public void NavigateTo<TDestinationViewModel>(object navigationContext = null)
         {
-            await App.Navigator.PopAsync();
+            Type pageType = viewModelRouting[typeof(TDestinationViewModel)];
+            var page = Activator.CreateInstance(pageType) as Page;
+
+            if (page != null)
+                Application.Current.MainPage.Navigation.PushAsync(page);
         }
-        #endregion
+
+        public void NavigateTo(Type destinationType, object navigationContext = null)
+        {
+            Type pageType = viewModelRouting[destinationType];
+            var page = Activator.CreateInstance(pageType, navigationContext) as Page;
+
+            if (page != null)
+                Application.Current.MainPage.Navigation.PushAsync(page);
+        }
+
+        public void NavigateBack()
+        {
+            Application.Current.MainPage.Navigation.PopAsync();
+        }
     }
-
-
 }

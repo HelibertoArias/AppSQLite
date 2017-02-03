@@ -6,13 +6,14 @@ namespace AppSQLite
     public partial class App : Application
     {
         #region Attributes
-        static DataBaseManager db;
 
-        #endregion
+        private static DataBaseManager db;
 
+        #endregion Attributes
 
         #region Properties
-       // public static MasterPage Master { get; internal set; }
+
+        // public static MasterPage Master { get; internal set; }
 
         public static NavigationPage Navigator { get; internal set; }
 
@@ -26,21 +27,20 @@ namespace AppSQLite
                 }
                 return db;
             }
-
         }
 
-        #endregion
-
+        #endregion Properties
 
         #region Constructor
+
         public App()
         {
             InitializeComponent();
 
             MainPage = new NavigationPage(new ViewPages.MainPage());
         }
-        #endregion
 
+        #endregion Constructor
 
         #region Methods
 
@@ -57,7 +57,8 @@ namespace AppSQLite
         protected override void OnResume()
         {
             // Handle when your app resumes
-        } 
-        #endregion
+        }
+
+        #endregion Methods
     }
 }

@@ -3,21 +3,19 @@ using AppSQLite.Helpers;
 using AppSQLite.Models;
 using AppSQLite.Services.Navigation;
 using AppSQLite.Services.Storage;
-using AppSQLite.ViewPages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using static AppSQLite.Services.Navigation.NavigationService;
-
 namespace AppSQLite.ViewModels
 {
     public class MainViewModel : ObservableBaseObject
     {
         #region Attributes
-        Func<Customer, string> orderby = (x => x.LastName);
+
+        private Func<Customer, string> orderby = (x => x.LastName);
 
         private static DataBaseManager _db;
 
@@ -27,19 +25,16 @@ namespace AppSQLite.ViewModels
 
         private string _filter;
 
-
         private Command _creataSampleDataCommand { get; set; }
 
         public Command _newCustomerNavigationCommand { get; set; }
 
         public Command _searchCustomerCommand { get; set; }
 
-
-        #endregion
-
-
+        #endregion Attributes
 
         #region Properties
+
         public bool IsRunning
         {
             get { return _isRunning; }
@@ -85,32 +80,25 @@ namespace AppSQLite.ViewModels
 
         public ObservableCollection<CustomerModel> Customers { get; set; } = new ObservableCollection<CustomerModel>();
 
-
-        #endregion
-
-
+        #endregion Properties
 
         #region Commands
-        public Command CreataSampleDataCommand { get { return _creataSampleDataCommand = _creataSampleDataCommand ?? new Command(CreataSampleDataExecute); }  }
+
+        public Command CreataSampleDataCommand { get { return _creataSampleDataCommand = _creataSampleDataCommand ?? new Command(CreataSampleDataExecute); } }
 
         public Command NewCustomerNavigationCommand { get { return _newCustomerNavigationCommand = _newCustomerNavigationCommand ?? new Command(NewCustomerNavigationExecute); } }
 
-        public Command SearchCustomerCommand { get { return _searchCustomerCommand = _searchCustomerCommand ?? new Command(OnFilterExecute); } } 
-        #endregion
+        public Command SearchCustomerCommand { get { return _searchCustomerCommand = _searchCustomerCommand ?? new Command(OnFilterExecute); } }
 
-
-
-        
+        #endregion Commands
 
         public MainViewModel()
         {
             _isRunning = false;
         }
 
-
         private async void CreataSampleDataExecute()
         {
-
             string[] firstNames = { "Jóse", "María", "Luís", "Lucas", "Matías", "Martín", "Lucho", "Josefa", "Karen", "Kate", "Pedro", "Marcho", "Yose", "Carlos", "Jaime", "Francisco", "Alfonso", "Ricardo", "Yuri", "Estafanni" };
 
             string[] lastNames = { "Cucunubá", "Coronado", "Arias", "Balaguera", "Grísales", "Fuentes", "Lopéz", "Galán", "Baños", "Piedrahita", "Granados" };
@@ -152,10 +140,9 @@ namespace AppSQLite.ViewModels
             }
         }
 
-        private async void NewCustomerNavigationExecute()
+        private void NewCustomerNavigationExecute()
         {
-            //await NavigationService.Navigate(Pages.NewCustomerPage);
-           await  App.Navigator.PushAsync(new NewCustomerPage());
+            NavigationService.Instance.NavigateTo<NewCustomerViewModel>();
         }
 
         private async void OnFilterExecute()
@@ -169,7 +156,6 @@ namespace AppSQLite.ViewModels
             }
 
             Customers.Sort(records, orderby);
-
         }
 
         private static async Task<List<CustomerModel>> GetCustomers()
@@ -191,8 +177,6 @@ namespace AppSQLite.ViewModels
             }
 
             return collectionModel;
-
-
         }
     }
 }

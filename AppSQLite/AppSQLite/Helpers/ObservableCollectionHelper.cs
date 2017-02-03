@@ -7,14 +7,14 @@ namespace AppSQLite.Helpers
 {
     public static class ObservableCollectionHelper
     {
-        public static void Sort<TSource, TKey>(this Collection<TSource> source, 
-                                                List<TSource> data, 
+        public static void Sort<TSource, TKey>(this Collection<TSource> source,
+                                                List<TSource> data,
                                                 Func<TSource, TKey> keySelector)
         {
             List<TSource> sortedList = data.OrderBy(keySelector).ToList();
 
             if (source == null)
-                source = new Collection<TSource>(); 
+                source = new Collection<TSource>();
             else
                 source.Clear();
 

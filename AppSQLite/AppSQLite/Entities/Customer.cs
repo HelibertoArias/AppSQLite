@@ -18,10 +18,5 @@ namespace AppSQLite.Entities
         public string LastName { get; set; }
 
         public string Thumbnail { get; set; } = "http://wp-images.emusic.com/assets/avatars/1316/1b53e3b403575fcb9cfcc990ccc0ebcb-bpthumb.jpg";
-
-
-
-
-
     }
 }

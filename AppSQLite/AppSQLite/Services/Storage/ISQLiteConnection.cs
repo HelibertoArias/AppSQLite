@@ -2,7 +2,7 @@
 
 namespace AppSQLite.Services.Storage
 {
-    public  interface ISQLiteConnection
+    public interface ISQLiteConnection
     {
         SQLiteAsyncConnection GetConnection();
     }

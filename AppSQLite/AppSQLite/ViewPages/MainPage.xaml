@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:AppSQLite.ViewModels; assembly=AppSQLite">
 
   <ContentPage.BindingContext>
-    <local:MainViewModel/>
+    <local:MainViewModel />
   </ContentPage.BindingContext>
 
   <StackLayout>
@@ -14,7 +14,6 @@
       Text="{Binding Filter, Mode=TwoWay}"
       SearchCommand="{Binding SearchCustomerCommand}">
     </SearchBar>
-
 
     <Button Text="Cargar clientes" Command="{Binding CreataSampleDataCommand}" />
 
@@ -27,47 +26,39 @@
       <ListView.ItemTemplate>
         <DataTemplate>
 
-
           <ImageCell
                     ImageSource="{Binding Thumbnail}"
                     Text="{Binding LastName}"
                     TextColor="Black"
                     Detail="{Binding FirstName}"
-                    DetailColor="Gray"/>
+                    DetailColor="Gray" />
 
           <!--
-          Use 
+          Use
             <TextCell Text="{Binding LastName}"
                     TextColor="Black"
                     Detail="{Binding FirstName}"
-                    DetailColor="Gray"/>
-            
-            or 
+                    DetailColor="Gray" />
+
+            or
           <ViewCell>
             <ViewCell.View>
               <StackLayout Orientation="Horizontal">
 
                 <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
-    
+
                   <Label Text="{Binding FullName}" HorizontalOptions="FillAndExpand" />
-                  
                 </StackLayout>
               </StackLayout>
             </ViewCell.View>
           </ViewCell>-->
-
-
-
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>
-
   </StackLayout>
 
   <ContentPage.ToolbarItems>
     <ToolbarItem Icon="ic_action_content_add_circle_outline"
-      Command="{Binding NewCustomerNavigationCommand}"/>
+      Command="{Binding NewCustomerNavigationCommand}" />
   </ContentPage.ToolbarItems>
-
-
 </ContentPage>
