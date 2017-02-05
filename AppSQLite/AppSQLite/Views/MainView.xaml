@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppSQLite.Views.MainView"
-             xmlns:local="clr-namespace:AppSQLite.ViewModels; assembly=AppSQLite">
+             xmlns:local="clr-namespace:AppSQLite.ViewModels; assembly=AppSQLite"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions">
 
   <ContentPage.BindingContext>
     <local:MainViewModel />
@@ -21,17 +22,51 @@
 
     <ListView
       x:Name="listView"
-      ItemsSource="{Binding Customers}">
+      ItemsSource="{Binding Customers}"
+      HasUnevenRows="True">
 
       <ListView.ItemTemplate>
         <DataTemplate>
 
-          <ImageCell
+          <ViewCell>
+            <Grid  Padding="10" RowSpacing="10" ColumnSpacing="5">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+              </Grid.ColumnDefinitions>
+
+              <controls:CircleImage
+                Source="{Binding Thumbnail}"
+                HeightRequest="50"
+                HorizontalOptions="CenterAndExpand"
+                Aspect="AspectFill"
+                WidthRequest="50"/>
+
+              <StackLayout Grid.Column="1">
+
+                <Label
+                  VerticalOptions="Center"
+                  Text="{Binding LastName}"/>
+
+                <Label
+                  VerticalOptions="Center"
+                  Text="{Binding FirstName}"
+                  Opacity="0.6"/>
+
+              
+
+              </StackLayout>
+            </Grid>
+          </ViewCell>
+
+          <!--
+                Image-Text-subtext
+                <ImageCell
                     ImageSource="{Binding Thumbnail}"
                     Text="{Binding LastName}"
                     TextColor="Black"
                     Detail="{Binding FirstName}"
-                    DetailColor="Gray" />
+                    DetailColor="Gray" />-->
 
           <!--
           Use
@@ -62,3 +97,5 @@
       Command="{Binding NewCustomerNavigationCommand}" />
   </ContentPage.ToolbarItems>
 </ContentPage>
+            
+              
