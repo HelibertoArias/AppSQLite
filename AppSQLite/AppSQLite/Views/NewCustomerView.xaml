@@ -1,6 +1,101 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppSQLite.Views.NewCustomerView">
-  <Label Text="Nuevo" VerticalOptions="Center" HorizontalOptions="Center" />
+             x:Class="AppSQLite.Views.NewCustomerView"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             Title="Registrar cliente">
+
+
+
+  <ScrollView
+      BindingContext="{Binding NewCustomer}">
+
+    <StackLayout
+      Orientation="Vertical"
+      Padding="10">
+
+
+      <Label
+        Text="Nombres:"
+        VerticalOptions="Center"
+        HorizontalOptions="Start">
+      </Label>
+
+      <Entry
+        Placeholder="Nombres del usuario"
+        Text="{Binding FirstName, Mode=TwoWay}"
+        VerticalOptions="Center"
+        HorizontalOptions="FillAndExpand"
+        Keyboard="Text">
+      </Entry>
+
+
+
+
+      <Label
+        Text="Apellidos:"
+        VerticalOptions="Center"
+        HorizontalOptions="Start">
+      </Label>
+
+      <Entry
+        Placeholder="Apellidos de usuario"
+        Text="{Binding LastName, Mode=TwoWay}"
+        VerticalOptions="Center"
+        HorizontalOptions="FillAndExpand"
+        Keyboard="Text">
+      </Entry>
+
+      <Label
+        Text="Cédula:"
+        VerticalOptions="Center"
+        HorizontalOptions="Start">
+      </Label>
+
+      <Entry
+        Placeholder="Numero de cédula"
+        Text="{Binding DocumentNumber, Mode=TwoWay}"
+        VerticalOptions="Center"
+        HorizontalOptions="FillAndExpand"
+        Keyboard="Text">
+      </Entry>
+
+      <Label
+         Text="Fecha Nacimiento:"
+         VerticalOptions="Center"
+         HorizontalOptions="Start">
+      </Label>
+
+      <DatePicker
+        x:Name="pickerNotificationDate"
+        Date="{Binding DateBirth}"/>
+
+
+
+      <StackLayout
+        Orientation="Horizontal">
+        <Button
+          Text="Guardar"
+          Command="{Binding NewCustomerCommand}"
+          VerticalOptions="Center"
+          HorizontalOptions="FillAndExpand">
+        </Button>
+
+
+
+
+
+
+
+      </StackLayout>
+
+
+    </StackLayout>
+
+
+  </ScrollView>
+
+
+
+
 </ContentPage>
