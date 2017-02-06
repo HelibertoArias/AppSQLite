@@ -38,7 +38,13 @@ namespace AppSQLite.Services.Navigation
         public void NavigateTo<TDestinationViewModel>(object navigationContext = null)
         {
             Type pageType = viewModelRouting[typeof(TDestinationViewModel)];
-            var page = Activator.CreateInstance(pageType) as Page;
+            /*Add navigationcontext as parameter*/
+            Page page = null;
+            if (navigationContext == null)
+                page = Activator.CreateInstance(pageType) as Page;
+            else
+                page = Activator.CreateInstance(pageType, navigationContext) as Page;
+            
 
             if (page != null)
                 Application.Current.MainPage.Navigation.PushAsync(page);
