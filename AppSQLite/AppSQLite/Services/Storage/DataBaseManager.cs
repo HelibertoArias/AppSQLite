@@ -14,13 +14,25 @@ namespace AppSQLite.Services.Storage
     {
         private SQLiteAsyncConnection database;
 
-        private Object thisLock = new Object();
+        private object thisLock = new Object();
 
-        public DataBaseManager()
+        private DataBaseManager()
         {
             database = DependencyService.Get<ISQLiteConnection>().GetConnection();
             //-->Add your entities here
             database.CreateTableAsync<Customer>().Wait();
+        }
+
+        private static DataBaseManager _db;
+        public static DataBaseManager Instance
+        {
+            get
+            {
+                if (_db == null)
+                    _db = new DataBaseManager();
+                return _db;
+
+            }
         }
 
         public Task SaveOrUpdate<T>(T value) where T : IKeyObject, new()

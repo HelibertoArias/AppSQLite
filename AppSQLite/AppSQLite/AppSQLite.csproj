@@ -43,6 +43,7 @@
     <Compile Include="Helpers\ObservableCollectionHelper.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Dialog\DialogService.cs" />
     <Compile Include="Services\Navigation\NavigationService.cs" />
     <Compile Include="Services\Storage\DataBaseManager.cs" />
     <Compile Include="Services\Storage\IKeyObject.cs" />

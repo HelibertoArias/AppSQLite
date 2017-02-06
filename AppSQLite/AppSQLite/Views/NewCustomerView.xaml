@@ -6,82 +6,69 @@
              Title="Registrar cliente">
 
 
-
-  <ScrollView
-      BindingContext="{Binding NewCustomer}">
-
-    <StackLayout
-      Orientation="Vertical"
-      Padding="10">
-
-
-      <Label
-        Text="Nombres:"
-        VerticalOptions="Center"
-        HorizontalOptions="Start">
-      </Label>
-
-      <Entry
-        Placeholder="Nombres del usuario"
-        Text="{Binding FirstName, Mode=TwoWay}"
-        VerticalOptions="Center"
-        HorizontalOptions="FillAndExpand"
-        Keyboard="Text">
-      </Entry>
-
-
-
-
-      <Label
-        Text="Apellidos:"
-        VerticalOptions="Center"
-        HorizontalOptions="Start">
-      </Label>
-
-      <Entry
-        Placeholder="Apellidos de usuario"
-        Text="{Binding LastName, Mode=TwoWay}"
-        VerticalOptions="Center"
-        HorizontalOptions="FillAndExpand"
-        Keyboard="Text">
-      </Entry>
-
-      <Label
-        Text="Cédula:"
-        VerticalOptions="Center"
-        HorizontalOptions="Start">
-      </Label>
-
-      <Entry
-        Placeholder="Numero de cédula"
-        Text="{Binding DocumentNumber, Mode=TwoWay}"
-        VerticalOptions="Center"
-        HorizontalOptions="FillAndExpand"
-        Keyboard="Text">
-      </Entry>
-
-      <Label
-         Text="Fecha Nacimiento:"
-         VerticalOptions="Center"
-         HorizontalOptions="Start">
-      </Label>
-
-      <DatePicker
-        x:Name="pickerNotificationDate"
-        Date="{Binding DateBirth}"/>
-
-
+  <StackLayout>
+    <ScrollView
+        BindingContext="{Binding NewCustomer}">
 
       <StackLayout
-        Orientation="Horizontal">
-        <Button
-          Text="Guardar"
-          Command="{Binding NewCustomerCommand}"
+        Orientation="Vertical"
+        Padding="10">
+
+
+        <Label
+          Text="Nombres:"
           VerticalOptions="Center"
-          HorizontalOptions="FillAndExpand">
-        </Button>
+          HorizontalOptions="Start">
+        </Label>
+
+        <Entry
+          Placeholder="Nombres del usuario"
+          Text="{Binding FirstName, Mode=TwoWay}"
+          VerticalOptions="Center"
+          HorizontalOptions="FillAndExpand"
+          Keyboard="Text">
+        </Entry>
 
 
+
+
+        <Label
+          Text="Apellidos:"
+          VerticalOptions="Center"
+          HorizontalOptions="Start">
+        </Label>
+
+        <Entry
+          Placeholder="Apellidos de usuario"
+          Text="{Binding LastName, Mode=TwoWay}"
+          VerticalOptions="Center"
+          HorizontalOptions="FillAndExpand"
+          Keyboard="Text">
+        </Entry>
+
+        <Label
+          Text="Cédula:"
+          VerticalOptions="Center"
+          HorizontalOptions="Start">
+        </Label>
+
+        <Entry
+          Placeholder="Numero de cédula"
+          Text="{Binding DocumentNumber, Mode=TwoWay}"
+          VerticalOptions="Center"
+          HorizontalOptions="FillAndExpand"
+          Keyboard="Text">
+        </Entry>
+
+        <Label
+           Text="Fecha Nacimiento:"
+           VerticalOptions="Center"
+           HorizontalOptions="Start">
+        </Label>
+
+        <DatePicker
+          x:Name="pickerNotificationDate"
+          Date="{Binding DateBirth}"/>
 
 
 
@@ -90,12 +77,20 @@
       </StackLayout>
 
 
+    </ScrollView>
+
+
+    <StackLayout
+         Orientation="Horizontal">
+      <Button
+        Text="Guardar"
+        Command="{Binding NewCustomerSaveCommand}"
+        VerticalOptions="Center"
+        HorizontalOptions="FillAndExpand">
+      </Button>
     </StackLayout>
 
-
-  </ScrollView>
-
-
+  </StackLayout>
 
 
 </ContentPage>

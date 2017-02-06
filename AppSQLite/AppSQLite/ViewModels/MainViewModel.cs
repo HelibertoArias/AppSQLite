@@ -3,6 +3,7 @@ using AppSQLite.Helpers;
 using AppSQLite.Models;
 using AppSQLite.Services.Navigation;
 using AppSQLite.Services.Storage;
+using AppSQLite.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,17 +13,17 @@ using Xamarin.Forms;
 
 namespace AppSQLite.ViewModels
 {
-    public class MainViewModel : ObservableBaseObject
+    public class MainViewModel : ObservableBaseObject 
     {
         #region Attributes
 
         private Func<Customer, string> orderby = (x => x.LastName);
 
-        private static DataBaseManager _db;
+        
 
         private bool _isRunning;
 
-        private static NavigationService _navigationService;
+       
 
         private string _filter;
 
@@ -57,17 +58,7 @@ namespace AppSQLite.ViewModels
             }
         }
 
-        public static DataBaseManager DB
-        {
-            get
-            {
-                if (_db == null)
-                {
-                    _db = new DataBaseManager();
-                }
-                return _db;
-            }
-        }
+       
 
         public ObservableCollection<CustomerModel> Customers { get; set; } = new ObservableCollection<CustomerModel>();
 
@@ -118,7 +109,7 @@ namespace AppSQLite.ViewModels
                 {
                     IsRunning = true;
 
-                    await DB.SaveOrUpdate(customer);
+                    await DataBaseManager.Instance.SaveOrUpdate(customer);
 
                     rowsQuery = await GetCustomers();
 
@@ -133,7 +124,8 @@ namespace AppSQLite.ViewModels
 
         private void NewCustomerNavigationExecute()
         {
-            NavigationService.Instance.NavigateTo<NewCustomerViewModel>();
+            //NavigationService.Instance.NavigateTo<NewCustomerViewModel>();
+            NavigationService.Instance.NavigateTo<NewCustomerViewModel>(new AppSQLite.ViewModels.NewCustomerViewModel());
         }
 
         private async void OnFilterExecute()
@@ -151,7 +143,7 @@ namespace AppSQLite.ViewModels
 
         private static async Task<List<CustomerModel>> GetCustomers()
         {
-            var collection = await DB.GetAll<Customer>();
+            var collection = await DataBaseManager.Instance.GetAll<Customer>();
             var collectionModel = new List<CustomerModel>();
 
             foreach (var entity in collection)

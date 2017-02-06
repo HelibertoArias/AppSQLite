@@ -1,12 +1,15 @@
-﻿using Xamarin.Forms;
+﻿using AppSQLite.ViewModels;
+using Xamarin.Forms;
 
 namespace AppSQLite.Views
 {
     public partial class NewCustomerView : ContentPage
     {
-        public NewCustomerView()
+        public NewCustomerView(NewCustomerViewModel model)
         {
             InitializeComponent();
+            
+            BindingContext = model;
         }
     }
 }
