@@ -1,6 +1,7 @@
 ﻿using AppSQLite.Entities;
 using AppSQLite.Helpers;
 using AppSQLite.Models;
+using AppSQLite.Services.Dialog;
 using AppSQLite.Services.Navigation;
 using AppSQLite.Services.Storage;
 using AppSQLite.Views;
@@ -13,17 +14,17 @@ using Xamarin.Forms;
 
 namespace AppSQLite.ViewModels
 {
-    public class MainViewModel : ObservableBaseObject 
+    public class MainViewModel : ObservableBaseObject
     {
         #region Attributes
 
         private Func<Customer, string> orderby = (x => x.LastName);
 
-        
+
 
         private bool _isRunning;
 
-       
+
 
         private string _filter;
 
@@ -32,6 +33,8 @@ namespace AppSQLite.ViewModels
         public Command _newCustomerNavigationCommand { get; set; }
 
         public Command _searchCustomerCommand { get; set; }
+
+       
 
         #endregion Attributes
 
@@ -58,7 +61,7 @@ namespace AppSQLite.ViewModels
             }
         }
 
-       
+
 
         public ObservableCollection<CustomerModel> Customers { get; set; } = new ObservableCollection<CustomerModel>();
 
@@ -66,69 +69,77 @@ namespace AppSQLite.ViewModels
 
         #region Commands
 
-        public Command CreataSampleDataCommand { get { return _creataSampleDataCommand = _creataSampleDataCommand ?? new Command(CreataSampleDataExecute); } }
+        // public Command CreataSampleDataCommand { get { return _creataSampleDataCommand = _creataSampleDataCommand ?? new Command(CreataSampleDataExecute); } }
 
         public Command NewCustomerNavigationCommand { get { return _newCustomerNavigationCommand = _newCustomerNavigationCommand ?? new Command(NewCustomerNavigationExecute); } }
 
         public Command SearchCustomerCommand { get { return _searchCustomerCommand = _searchCustomerCommand ?? new Command(OnFilterExecute); } }
 
+      
+
         #endregion Commands
 
-        public MainViewModel()
+        public   MainViewModel()
         {
             _isRunning = false;
+            var dummy =  FillList();
         }
 
-        private async void CreataSampleDataExecute()
-        {
-            string[] firstNames = { "Jóse", "María", "Luís", "Lucas", "Matías", "Martín", "Lucho", "Josefa", "Karen", "Kate", "Pedro", "Marcho", "Yose", "Carlos", "Jaime", "Francisco", "Alfonso", "Ricardo", "Yuri", "Estafanni" };
+        //private async void CreataSampleDataExecute()
+        //{
+        //    string[] firstNames = { "Jóse", "María", "Luís", "Lucas", "Matías", "Martín", "Lucho", "Josefa", "Karen", "Kate", "Pedro", "Marcho", "Yose", "Carlos", "Jaime", "Francisco", "Alfonso", "Ricardo", "Yuri", "Estafanni" };
 
-            string[] lastNames = { "Cucunubá", "Coronado", "Arias", "Balaguera", "Grísales", "Fuentes", "Lopéz", "Galán", "Baños", "Piedrahita", "Granados" };
+        //    string[] lastNames = { "Cucunubá", "Coronado", "Arias", "Balaguera", "Grísales", "Fuentes", "Lopéz", "Galán", "Baños", "Piedrahita", "Granados" };
 
-            int firstNamesLength = firstNames.Length - 1;
-            int lastNameLength = lastNames.Length - 1;
+        //    int firstNamesLength = firstNames.Length - 1;
+        //    int lastNameLength = lastNames.Length - 1;
 
-            Random rdn = new Random(DateTime.Now.Millisecond);
+        //    Random rdn = new Random(DateTime.Now.Millisecond);
 
-            int i = 0;
+        //    int i = 0;
 
-            while (i < 3)
-            {
-                var customer = new Customer
-                {
-                    FirstName = firstNames[rdn.Next(0, firstNamesLength)],
-                    LastName = $"{lastNames[rdn.Next(0, lastNameLength)]} {lastNames[rdn.Next(0, lastNameLength)]}"
-                };
+        //    while (i < 3)
+        //    {
+        //        var customer = new Customer
+        //        {
+        //            FirstName = firstNames[rdn.Next(0, firstNamesLength)],
+        //            LastName = $"{lastNames[rdn.Next(0, lastNameLength)]} {lastNames[rdn.Next(0, lastNameLength)]}"
+        //        };
 
-                var rowsQuery = await GetCustomers();
+        //        var rowsQuery = await GetCustomers();
 
-                var existe = rowsQuery.Any(x => x.FirstName.Equals(customer.FirstName)
-                                             && x.LastName.Equals(customer.LastName));
+        //        var existe = rowsQuery.Any(x => x.FirstName.Equals(customer.FirstName)
+        //                                     && x.LastName.Equals(customer.LastName));
 
-                if (!existe)
-                {
-                    IsRunning = true;
+        //        if (!existe)
+        //        {
+        //            IsRunning = true;
 
-                    await DataBaseManager.Instance.SaveOrUpdate(customer);
+        //            await DataBaseManager.Instance.SaveOrUpdate(customer);
 
-                    rowsQuery = await GetCustomers();
+        //            rowsQuery = await GetCustomers();
 
-                    Customers.Sort(rowsQuery, orderby);
+        //            Customers.Sort(rowsQuery, orderby);
 
-                    await Task.Delay(1500);
-                    i++;
-                    IsRunning = false;
-                }
-            }
-        }
+        //            await Task.Delay(1500);
+        //            i++;
+        //            IsRunning = false;
+        //        }
+        //    }
+        //}
 
         private void NewCustomerNavigationExecute()
         {
             //NavigationService.Instance.NavigateTo<NewCustomerViewModel>();
-            NavigationService.Instance.NavigateTo<NewCustomerViewModel>(new AppSQLite.ViewModels.NewCustomerViewModel());
+            NavigationService.Instance.NavigateTo<CustomerViewModel>(new CustomerViewModel());
         }
 
         private async void OnFilterExecute()
+        {
+            await FillList();
+        }
+
+        private async Task FillList()
         {
             var records = await GetCustomers();
             if (!string.IsNullOrEmpty(Filter))
@@ -141,8 +152,10 @@ namespace AppSQLite.ViewModels
             Customers.Sort(records, orderby);
         }
 
-        private static async Task<List<CustomerModel>> GetCustomers()
+        private  async Task<List<CustomerModel>> GetCustomers()
         {
+            IsRunning = true;
+
             var collection = await DataBaseManager.Instance.GetAll<Customer>();
             var collectionModel = new List<CustomerModel>();
 
@@ -158,6 +171,8 @@ namespace AppSQLite.ViewModels
                                             DocumentNumber = entity.DocumentNumber
                                         });
             }
+
+            IsRunning = false;
 
             return collectionModel;
         }

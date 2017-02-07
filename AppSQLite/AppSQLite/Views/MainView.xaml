@@ -16,7 +16,9 @@
       SearchCommand="{Binding SearchCustomerCommand}">
     </SearchBar>
 
-    <Button Text="Cargar clientes" Command="{Binding CreataSampleDataCommand}" />
+    <!--
+      Enable only if want a intial populate-->
+      <!--<Button Text="Cargar clientes" Command="{Binding CreataSampleDataCommand}" />-->
 
     <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}" />
 
@@ -30,6 +32,10 @@
 
           <ViewCell>
             <Grid  Padding="10" RowSpacing="10" ColumnSpacing="5">
+              <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SelectCommand}"/>
+              </Grid.GestureRecognizers>
+              
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>

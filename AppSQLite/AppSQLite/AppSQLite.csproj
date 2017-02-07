@@ -50,7 +50,6 @@
     <Compile Include="Services\Storage\ISQLiteConnection.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\NewCustomerViewModel.cs" />
     <Compile Include="ViewModels\ObservableBaseObject.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
