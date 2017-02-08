@@ -16,8 +16,7 @@ namespace AppSQLite.Models
             NavigationService.Instance.NavigateTo<CustomerViewModel>(
                     new CustomerViewModel()
                     {
-                        Customer = this,
-                        TitleView = "Editar cliente"
+                        Customer = this
                     }
             );
         }

@@ -131,10 +131,8 @@ namespace AppSQLite.ViewModels
         private void NewCustomerNavigationExecute()
         {
             //NavigationService.Instance.NavigateTo<NewCustomerViewModel>();
-            NavigationService.Instance.NavigateTo<CustomerViewModel>(new CustomerViewModel()
-            {
-                TitleView = "Registrar cliente"
-            });
+            //NavigationService.Instance.NavigateTo<CustomerViewModel>(new CustomerViewModel(){ IsEditing=false});
+            NavigationService.Instance.NavigateTo<CustomerViewModel>(new CustomerViewModel() );
         }
 
         private async void OnFilterExecute()

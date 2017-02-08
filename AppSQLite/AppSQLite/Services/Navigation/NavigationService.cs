@@ -15,7 +15,7 @@ namespace AppSQLite.Services.Navigation
         private IDictionary<Type, Type> viewModelRouting = new Dictionary<Type, Type>()
         {
             { typeof(MainViewModel),  typeof(MainView) },
-            { typeof(CustomerViewModel), typeof(NewCustomerView)}
+            { typeof(CustomerViewModel), typeof(CustomerView)}
             /*
              * Add here your viewmodel-view...to call them you use
              * NavigationService.Instance.NavigateTo<NewCustomerViewModel>();

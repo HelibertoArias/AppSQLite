@@ -3,9 +3,9 @@ using Xamarin.Forms;
 
 namespace AppSQLite.Views
 {
-    public partial class NewCustomerView : ContentPage
+    public partial class CustomerView : ContentPage
     {
-        public NewCustomerView(CustomerViewModel model)
+        public CustomerView(CustomerViewModel model)
         {
             InitializeComponent();
             

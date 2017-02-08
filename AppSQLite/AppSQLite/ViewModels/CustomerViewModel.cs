@@ -10,19 +10,48 @@ namespace AppSQLite.ViewModels
 {
     public class CustomerViewModel : BindableObject
     {
-        public string TitleView { get; set; }
+        #region Attributes
+        private const string EditTitle = "Editar cliente";
+        private const string AddTitle = "Registrar cliente";
+        private const string AddSuccess = "Registro guardado correctamente";
+        private const string DeleteSucess = "Eliminación realizada correctamente";
+        private const string OperacionSuccesTitle = "Operacion";
+        private const string OperacionErrorTitle = "Error";
+        private const string ErrorMessage = "Error presentado";
 
+        private Command _saveCommand;
+
+        private Command _deleteCommand;
+        #endregion
+
+        #region Properties
+       public bool IsEditing { get; set; }
+
+
+        public string TitleView
+        {
+            get
+            {
+                // return IsEditing ? EditTitle : AddTitle;
+                return Customer.Id != 0 ? EditTitle : AddTitle;
+            } 
+        }
+
+        #endregion
         public CustomerModel Customer { get; set; } = new CustomerModel();
 
         public CustomerViewModel()
         {
-            
+            IsEditing =  Customer.Id != 0;
         }
 
+        #region Command
 
-        private Command _SaveCommand;
+        public Command SaveCommand { get { return _saveCommand = _saveCommand ?? new Command(SaveCommandExecute); } }
 
-        public Command SaveCommand { get { return _SaveCommand = _SaveCommand ?? new Command(SaveCommandExecute); } }
+        public Command DeleteCommand { get { return _deleteCommand = _deleteCommand ?? new Command(DeleteCommandExecute); } }
+
+        #endregion Command
 
         private async void SaveCommandExecute()
         {
@@ -42,17 +71,41 @@ namespace AppSQLite.ViewModels
 
                 await DataBaseManager.Instance.SaveOrUpdate(entity);
 
-                await DialogService.Instance.ShowMessage("Operacion", "Registro guardado correctamente");
+                await DialogService.Instance.ShowMessage(OperacionSuccesTitle, AddSuccess);
 
-                //->Redirect to MainView.
-                NavigationService.Instance.NavigateBack();
+                //->Redirect to MainView. requiere Message Center implements
+                //NavigationService.Instance.NavigateBack();
+                NavigationService.Instance.NavigateTo<MainViewModel>();
             }
             catch (Exception ex)
             {
-                await DialogService.Instance.ShowMessage("Error", $"Error presentado {ex.Message}");
+                await DialogService.Instance.ShowMessage(OperacionErrorTitle, $"{ErrorMessage} {ex.Message}");
             }
         }
 
-        
+        private async void DeleteCommandExecute()
+        {
+            try
+            {
+                //-> Validate
+
+                Customer entity = new Customer()
+                {
+                    Id = Customer.Id
+                };
+
+                await DataBaseManager.Instance.Delete(entity);
+
+                await DialogService.Instance.ShowMessage(OperacionSuccesTitle, DeleteSucess);
+
+                //->Redirect to MainView. requiere Message Center implements
+                //NavigationService.Instance.NavigateBack();
+                NavigationService.Instance.NavigateTo<MainViewModel>();
+            }
+            catch (Exception ex)
+            {
+                await DialogService.Instance.ShowMessage(OperacionErrorTitle, $"{ErrorMessage} {ex.Message}");
+            }
+        }
     }
 }
