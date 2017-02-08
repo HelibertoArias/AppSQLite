@@ -34,7 +34,7 @@ namespace AppSQLite.ViewModels
 
         public Command _searchCustomerCommand { get; set; }
 
-       
+
 
         #endregion Attributes
 
@@ -75,14 +75,14 @@ namespace AppSQLite.ViewModels
 
         public Command SearchCustomerCommand { get { return _searchCustomerCommand = _searchCustomerCommand ?? new Command(OnFilterExecute); } }
 
-      
+
 
         #endregion Commands
 
-        public   MainViewModel()
+        public MainViewModel()
         {
             _isRunning = false;
-            var dummy =  FillList();
+            var dummy = FillList();
         }
 
         //private async void CreataSampleDataExecute()
@@ -131,7 +131,10 @@ namespace AppSQLite.ViewModels
         private void NewCustomerNavigationExecute()
         {
             //NavigationService.Instance.NavigateTo<NewCustomerViewModel>();
-            NavigationService.Instance.NavigateTo<CustomerViewModel>(new CustomerViewModel());
+            NavigationService.Instance.NavigateTo<CustomerViewModel>(new CustomerViewModel()
+            {
+                TitleView = "Registrar cliente"
+            });
         }
 
         private async void OnFilterExecute()
@@ -152,7 +155,7 @@ namespace AppSQLite.ViewModels
             Customers.Sort(records, orderby);
         }
 
-        private  async Task<List<CustomerModel>> GetCustomers()
+        private async Task<List<CustomerModel>> GetCustomers()
         {
             IsRunning = true;
 

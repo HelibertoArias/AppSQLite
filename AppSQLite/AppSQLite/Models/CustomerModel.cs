@@ -14,7 +14,11 @@ namespace AppSQLite.Models
         private void SelectCommandExecute()
         {
             NavigationService.Instance.NavigateTo<CustomerViewModel>(
-                    new CustomerViewModel() { Customer = this }
+                    new CustomerViewModel()
+                    {
+                        Customer = this,
+                        TitleView = "Editar cliente"
+                    }
             );
         }
 

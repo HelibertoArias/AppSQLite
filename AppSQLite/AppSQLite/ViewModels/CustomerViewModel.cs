@@ -10,7 +10,15 @@ namespace AppSQLite.ViewModels
 {
     public class CustomerViewModel : BindableObject
     {
+        public string TitleView { get; set; }
+
         public CustomerModel Customer { get; set; } = new CustomerModel();
+
+        public CustomerViewModel()
+        {
+            
+        }
+
 
         private Command _SaveCommand;
 
@@ -37,8 +45,7 @@ namespace AppSQLite.ViewModels
                 await DialogService.Instance.ShowMessage("Operacion", "Registro guardado correctamente");
 
                 //->Redirect to MainView.
-
-                NavigationService.Instance.NavigateTo<MainViewModel>();
+                NavigationService.Instance.NavigateBack();
             }
             catch (Exception ex)
             {
