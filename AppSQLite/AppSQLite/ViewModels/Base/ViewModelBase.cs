@@ -1,11 +1,23 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace AppSQLite.ViewModels
+namespace AppSQLite.ViewModels.Base
 {
-    public class ObservableBaseObject : INotifyPropertyChanged
+    public class ViewModelBase : INotifyPropertyChanged
     {
-        public ObservableBaseObject()
+        private bool _isRunning;
+
+        public bool IsRunning
+        {
+            get { return _isRunning; }
+            set
+            {
+                _isRunning = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ViewModelBase()
         {
         }
 

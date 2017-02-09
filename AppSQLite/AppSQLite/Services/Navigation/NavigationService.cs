@@ -59,6 +59,12 @@ namespace AppSQLite.Services.Navigation
                 Application.Current.MainPage.Navigation.PushAsync(page);
         }
 
+        public void NavigateBackToFirst()
+        {
+            Application.Current.MainPage.Navigation.PopToRootAsync();
+        }
+
+
         public void NavigateBack()
         {
             Application.Current.MainPage.Navigation.PopAsync();

@@ -4,6 +4,7 @@ using AppSQLite.Models;
 using AppSQLite.Services.Dialog;
 using AppSQLite.Services.Navigation;
 using AppSQLite.Services.Storage;
+using AppSQLite.ViewModels.Base;
 using AppSQLite.Views;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using Xamarin.Forms;
 
 namespace AppSQLite.ViewModels
 {
-    public class MainViewModel : ObservableBaseObject
+    public class MainViewModel : ViewModelBase
     {
         #region Attributes
 
@@ -22,7 +23,7 @@ namespace AppSQLite.ViewModels
 
 
 
-        private bool _isRunning;
+      
 
 
 
@@ -40,15 +41,7 @@ namespace AppSQLite.ViewModels
 
         #region Properties
 
-        public bool IsRunning
-        {
-            get { return _isRunning; }
-            set
-            {
-                _isRunning = value;
-                OnPropertyChanged();
-            }
-        }
+       
 
         public string Filter
         {
@@ -81,7 +74,7 @@ namespace AppSQLite.ViewModels
 
         public MainViewModel()
         {
-            _isRunning = false;
+            IsRunning= false;
             var dummy = FillList();
         }
 

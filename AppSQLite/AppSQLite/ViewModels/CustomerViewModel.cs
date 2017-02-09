@@ -3,14 +3,16 @@ using AppSQLite.Models;
 using AppSQLite.Services.Dialog;
 using AppSQLite.Services.Navigation;
 using AppSQLite.Services.Storage;
+using AppSQLite.ViewModels.Base;
 using System;
 using Xamarin.Forms;
 
 namespace AppSQLite.ViewModels
 {
-    public class CustomerViewModel : ObservableBaseObject
+    public class CustomerViewModel : ViewModelBase
     {
         #region Attributes
+
         private const string EditTitle = "Editar cliente";
         private const string AddTitle = "Registrar cliente";
         private const string AddSuccess = "Registro guardado correctamente";
@@ -29,9 +31,11 @@ namespace AppSQLite.ViewModels
         private Command _saveCommand;
 
         private Command _deleteCommand;
-        #endregion
+
+        #endregion Attributes
 
         #region Properties
+
         private bool _enableDelete;
 
         public bool EnableDelete
@@ -44,9 +48,6 @@ namespace AppSQLite.ViewModels
             }
         }
 
-
-
-
         public string TitleView
         {
             get
@@ -56,12 +57,12 @@ namespace AppSQLite.ViewModels
             }
         }
 
-        #endregion
+        #endregion Properties
+
         public CustomerModel Customer { get; set; } = new CustomerModel();
 
         public CustomerViewModel()
         {
-
         }
 
         #region Command
@@ -74,7 +75,6 @@ namespace AppSQLite.ViewModels
 
         private async void SaveCommandExecute()
         {
-
             if (String.IsNullOrEmpty(Customer.FirstName) || string.IsNullOrWhiteSpace(Customer.FirstName))
             {
                 await DialogService.Instance.ShowMessage(ValidationTitle, ErrorFistNameValidation);
@@ -92,8 +92,6 @@ namespace AppSQLite.ViewModels
                 await DialogService.Instance.ShowMessage(ValidationTitle, ErrorBirdthDateValidation);
                 return;
             }
-
-
 
             try
             {
