@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace AppSQLite.Services.Navigation
 {
-    public class NavigationService
+    public class NavigationService : INavigationService
     {
         private static NavigationService _instance;
 

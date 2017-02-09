@@ -170,5 +170,6 @@ namespace AppSQLite.ViewModels
 
             return collectionModel;
         }
+ 
     }
 }
