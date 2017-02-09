@@ -132,7 +132,7 @@ namespace AppSQLite.ViewModels
         {
             //NavigationService.Instance.NavigateTo<NewCustomerViewModel>();
             //NavigationService.Instance.NavigateTo<CustomerViewModel>(new CustomerViewModel(){ IsEditing=false});
-            NavigationService.Instance.NavigateTo<CustomerViewModel>(new CustomerViewModel() );
+            NavigationService.Instance.NavigateTo<CustomerViewModel>(new CustomerViewModel() { EnableDelete = false } );
         }
 
         private async void OnFilterExecute()

@@ -94,7 +94,7 @@
         Command="{Binding DeleteCommand}"
         VerticalOptions="Center"
         HorizontalOptions="FillAndExpand"
-        IsVisible  ="{Binding !IsEditing}">
+        IsVisible  ="{Binding EnableDelete}">
       </Button>
     </StackLayout>
 

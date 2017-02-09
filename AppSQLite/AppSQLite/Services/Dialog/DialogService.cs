@@ -19,5 +19,10 @@ namespace AppSQLite.Services.Dialog
         {
             await App.Current.MainPage.DisplayAlert(title, message, "Acceptar");
         }
+
+        public async Task<bool> ShowConfirm(string title, string message, string acceptText, string cancelText) {
+            var answer = await App.Current.MainPage.DisplayAlert(title, message, acceptText, cancelText);
+            return answer;
+        }
     }
 }

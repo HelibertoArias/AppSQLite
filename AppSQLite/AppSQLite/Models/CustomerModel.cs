@@ -16,7 +16,8 @@ namespace AppSQLite.Models
             NavigationService.Instance.NavigateTo<CustomerViewModel>(
                     new CustomerViewModel()
                     {
-                        Customer = this
+                        Customer = this,
+                        EnableDelete = true
                     }
             );
         }

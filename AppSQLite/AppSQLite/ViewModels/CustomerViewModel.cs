@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace AppSQLite.ViewModels
 {
-    public class CustomerViewModel : BindableObject
+    public class CustomerViewModel : ObservableBaseObject
     {
         #region Attributes
         private const string EditTitle = "Editar cliente";
@@ -18,14 +18,33 @@ namespace AppSQLite.ViewModels
         private const string OperacionSuccesTitle = "Operacion";
         private const string OperacionErrorTitle = "Error";
         private const string ErrorMessage = "Error presentado";
-
+        private const string DeleteTitleConfirmation = "Confirmar eliminación";
+        private const string DeleleteQuestring = "¿Esta seguro de eliminar este registro?";
+        private const string ValidationTitle = "Validación";
+        private const string acceptText = "Si";
+        private const string cancelText = "No";
+        private const string ErrorFistNameValidation = "El campo nombre esta vacío";
+        private const string ErrorLastNameValidation = "El campo apellido esta vacío";
+        private const string ErrorBirdthDateValidation = "La fecha de nacimiento debe se menor a la actual";
         private Command _saveCommand;
 
         private Command _deleteCommand;
         #endregion
 
         #region Properties
-       public bool IsEditing { get; set; }
+        private bool _enableDelete;
+
+        public bool EnableDelete
+        {
+            get { return _enableDelete; }
+            set
+            {
+                _enableDelete = value;
+                OnPropertyChanged();
+            }
+        }
+
+
 
 
         public string TitleView
@@ -33,8 +52,8 @@ namespace AppSQLite.ViewModels
             get
             {
                 // return IsEditing ? EditTitle : AddTitle;
-                return Customer.Id != 0 ? EditTitle : AddTitle;
-            } 
+                return EnableDelete ? EditTitle : AddTitle;
+            }
         }
 
         #endregion
@@ -42,7 +61,7 @@ namespace AppSQLite.ViewModels
 
         public CustomerViewModel()
         {
-            IsEditing =  Customer.Id != 0;
+
         }
 
         #region Command
@@ -55,6 +74,27 @@ namespace AppSQLite.ViewModels
 
         private async void SaveCommandExecute()
         {
+
+            if (String.IsNullOrEmpty(Customer.FirstName) || string.IsNullOrWhiteSpace(Customer.FirstName))
+            {
+                await DialogService.Instance.ShowMessage(ValidationTitle, ErrorFistNameValidation);
+                return;
+            }
+
+            if (String.IsNullOrEmpty(Customer.LastName) || string.IsNullOrWhiteSpace(Customer.LastName))
+            {
+                await DialogService.Instance.ShowMessage(ValidationTitle, ErrorLastNameValidation);
+                return;
+            }
+
+            if (Customer.DateBirth >= DateTime.Now.Date)
+            {
+                await DialogService.Instance.ShowMessage(ValidationTitle, ErrorBirdthDateValidation);
+                return;
+            }
+
+
+
             try
             {
                 //-> Validate
@@ -85,6 +125,11 @@ namespace AppSQLite.ViewModels
 
         private async void DeleteCommandExecute()
         {
+            var result = await DialogService.Instance.ShowConfirm(DeleteTitleConfirmation, DeleleteQuestring, acceptText, cancelText);
+
+            if (!result)
+                return;
+
             try
             {
                 //-> Validate
