@@ -29,9 +29,10 @@ namespace AppSQLite.ViewModels
         private const string ErrorFistNameValidation = "El campo nombre esta vacío";
         private const string ErrorLastNameValidation = "El campo apellido esta vacío";
         private const string ErrorBirdthDateValidation = "La fecha de nacimiento debe se menor a la actual";
-        private Command _saveCommand;
 
-        private Command _deleteCommand;
+        private ICommand _saveCommand;
+
+        private ICommand _deleteCommand;
 
         #endregion Attributes
 

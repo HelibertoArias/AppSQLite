@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace AppSQLite.ViewModels.Base
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
         private bool _isRunning;
 
@@ -16,10 +16,7 @@ namespace AppSQLite.ViewModels.Base
                 OnPropertyChanged();
             }
         }
-
-        public ViewModelBase()
-        {
-        }
+       
 
         public event PropertyChangedEventHandler PropertyChanged = delegate
         {

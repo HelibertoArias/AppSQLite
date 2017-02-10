@@ -24,11 +24,11 @@ namespace AppSQLite.ViewModels
 
         private string _filter;
 
-        private Command _creataSampleDataCommand { get; set; }
+        private ICommand _creataSampleDataCommand { get; set; }
 
-        public Command _newCustomerNavigationCommand { get; set; }
+        public ICommand _newCustomerNavigationCommand { get; set; }
 
-        public Command _searchCustomerCommand { get; set; }
+        public ICommand _searchCustomerCommand { get; set; }
         #endregion Attributes
 
         #region Properties
