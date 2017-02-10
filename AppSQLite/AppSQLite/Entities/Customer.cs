@@ -1,10 +1,10 @@
-﻿using AppSQLite.Services.Storage;
+﻿using AppSQLite.Entities.Base;
 using SQLite;
 using System;
 
 namespace AppSQLite.Entities
 {
-    public class Customer : IKeyObject
+    public class Customer : IEntityBase
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

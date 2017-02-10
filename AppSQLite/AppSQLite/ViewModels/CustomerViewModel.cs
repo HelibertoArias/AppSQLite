@@ -5,6 +5,7 @@ using AppSQLite.Services.Navigation;
 using AppSQLite.Services.Storage;
 using AppSQLite.ViewModels.Base;
 using System;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace AppSQLite.ViewModels
@@ -67,9 +68,9 @@ namespace AppSQLite.ViewModels
 
         #region Command
 
-        public Command SaveCommand { get { return _saveCommand = _saveCommand ?? new Command(SaveCommandExecute); } }
+        public ICommand SaveCommand { get { return _saveCommand = _saveCommand ?? new Command(SaveCommandExecute); } }
 
-        public Command DeleteCommand { get { return _deleteCommand = _deleteCommand ?? new Command(DeleteCommandExecute); } }
+        public ICommand DeleteCommand { get { return _deleteCommand = _deleteCommand ?? new Command(DeleteCommandExecute); } }
 
         #endregion Command
 

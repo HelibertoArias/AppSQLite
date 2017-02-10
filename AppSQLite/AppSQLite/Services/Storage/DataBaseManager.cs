@@ -1,4 +1,5 @@
 ﻿using AppSQLite.Entities;
+using AppSQLite.Entities.Base;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using Xamarin.Forms;
 /// </summary>
 namespace AppSQLite.Services.Storage
 {
-    public class DataBaseManager
+    public class DataBaseManager : IDataService
     {
         private SQLiteAsyncConnection database;
 
@@ -24,6 +25,7 @@ namespace AppSQLite.Services.Storage
         }
 
         private static DataBaseManager _db;
+
         public static DataBaseManager Instance
         {
             get
@@ -31,11 +33,10 @@ namespace AppSQLite.Services.Storage
                 if (_db == null)
                     _db = new DataBaseManager();
                 return _db;
-
             }
         }
 
-        public Task SaveOrUpdate<T>(T value) where T : IKeyObject, new()
+        public Task SaveOrUpdate<T>(T value) where T : IEntityBase, new()
         {
             lock (thisLock)
             {
@@ -50,7 +51,7 @@ namespace AppSQLite.Services.Storage
             }
         }
 
-        public Task Delete<T>(T value) where T : IKeyObject, new()
+        public Task Delete<T>(T value) where T : IEntityBase, new()
         {
             lock (thisLock)
             {
@@ -58,7 +59,7 @@ namespace AppSQLite.Services.Storage
             }
         }
 
-        public Task<List<T>> GetAll<T>() where T : IKeyObject, new()
+        public Task<List<T>> GetAll<T>() where T : IEntityBase, new()
         {
             lock (thisLock)
             {
@@ -66,7 +67,7 @@ namespace AppSQLite.Services.Storage
             }
         }
 
-        public Task<T> GetItem<T>(int id) where T : IKeyObject, new()
+        public Task<T> GetItem<T>(int id) where T : IEntityBase, new()
         {
             lock (thisLock)
             {

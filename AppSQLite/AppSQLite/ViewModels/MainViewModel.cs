@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace AppSQLite.ViewModels
@@ -21,12 +22,6 @@ namespace AppSQLite.ViewModels
 
         private Func<Customer, string> orderby = (x => x.LastName);
 
-
-
-      
-
-
-
         private string _filter;
 
         private Command _creataSampleDataCommand { get; set; }
@@ -34,9 +29,6 @@ namespace AppSQLite.ViewModels
         public Command _newCustomerNavigationCommand { get; set; }
 
         public Command _searchCustomerCommand { get; set; }
-
-
-
         #endregion Attributes
 
         #region Properties
@@ -64,9 +56,9 @@ namespace AppSQLite.ViewModels
 
         // public Command CreataSampleDataCommand { get { return _creataSampleDataCommand = _creataSampleDataCommand ?? new Command(CreataSampleDataExecute); } }
 
-        public Command NewCustomerNavigationCommand { get { return _newCustomerNavigationCommand = _newCustomerNavigationCommand ?? new Command(NewCustomerNavigationExecute); } }
+        public ICommand NewCustomerNavigationCommand { get { return _newCustomerNavigationCommand = _newCustomerNavigationCommand ?? new Command(NewCustomerNavigationExecute); } }
 
-        public Command SearchCustomerCommand { get { return _searchCustomerCommand = _searchCustomerCommand ?? new Command(OnFilterExecute); } }
+        public ICommand SearchCustomerCommand { get { return _searchCustomerCommand = _searchCustomerCommand ?? new Command(OnFilterExecute); } }
 
 
 
