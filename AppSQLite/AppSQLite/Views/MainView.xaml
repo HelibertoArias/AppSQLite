@@ -10,6 +10,7 @@
   </ContentPage.BindingContext>
 
   <StackLayout>
+    <Label Text="{Binding TextDemo}"/>
     <SearchBar
       Placeholder="Buscar..."
       Text="{Binding Filter, Mode=TwoWay}"

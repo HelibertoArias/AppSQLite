@@ -20,6 +20,14 @@ namespace AppSQLite.ViewModels
     {
         #region Attributes
 
+        private string _textDemo;
+
+        public string TextDemo
+        {
+            get { return _textDemo; }
+            set { _textDemo = value; OnPropertyChanged(); }
+        }
+
         private Func<Customer, string> orderby = (x => x.LastName);
 
         private string _filter;
@@ -68,6 +76,12 @@ namespace AppSQLite.ViewModels
         {
             IsRunning= false;
             var dummy = FillList();
+            TextDemo = "ESto es el inicio";
+
+            Xamarin.Forms.MessagingCenter.Subscribe<MainViewModel>(this, "Change", (sender) =>
+            {
+                TextDemo = "Changed from Messaging Center";
+            });
         }
 
         //private async void CreataSampleDataExecute()

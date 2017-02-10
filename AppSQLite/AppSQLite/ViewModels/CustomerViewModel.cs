@@ -65,6 +65,7 @@ namespace AppSQLite.ViewModels
 
         public CustomerViewModel()
         {
+            
         }
 
         #region Command
@@ -77,6 +78,8 @@ namespace AppSQLite.ViewModels
 
         private async void SaveCommandExecute()
         {
+
+
             if (String.IsNullOrEmpty(Customer.FirstName) || string.IsNullOrWhiteSpace(Customer.FirstName))
             {
                 await DialogService.Instance.ShowMessage(ValidationTitle, ErrorFistNameValidation);
@@ -115,12 +118,18 @@ namespace AppSQLite.ViewModels
 
                 //->Redirect to MainView. requiere Message Center implements
                 //NavigationService.Instance.NavigateBack();
-                NavigationService.Instance.NavigateTo<MainViewModel>();
+
+                //--> Send notification    
+                Xamarin.Forms.MessagingCenter.Send(new MainViewModel(), "Change");
+                NavigationService.Instance.NavigateBack();
+                //NavigationService.Instance.NavigateTo<MainViewModel>();
             }
             catch (Exception ex)
             {
                 await DialogService.Instance.ShowMessage(OperacionErrorTitle, $"{ErrorMessage} {ex.Message}");
             }
+
+           
         }
 
         private async void DeleteCommandExecute()
