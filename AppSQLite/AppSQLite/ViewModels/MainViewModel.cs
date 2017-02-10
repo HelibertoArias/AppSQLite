@@ -41,7 +41,7 @@ namespace AppSQLite.ViewModels
 
         #region Properties
 
-       
+
 
         public string Filter
         {
@@ -74,14 +74,56 @@ namespace AppSQLite.ViewModels
 
         public MainViewModel()
         {
-            IsRunning= false;
+            IsRunning = false;
             var dummy = FillList();
             TextDemo = "ESto es el inicio";
 
-            Xamarin.Forms.MessagingCenter.Subscribe<MainViewModel>(this, "Change", (sender) =>
+
+
+            Xamarin.Forms.MessagingCenter.Subscribe<MainViewModel, CustomerModel>(this, "AddedRecord", (sender, arg) =>
             {
-                TextDemo = "Changed from Messaging Center";
+                Customers.Add(arg);
+
+                List<CustomerModel> list = new List<CustomerModel>();
+
+                for (int i = 0; i < Customers.Count; i++)
+                {
+                    list.Add(Customers[i]);
+                }
+
+                Customers.Sort(list, orderby);
+
+                //  await FillList();
             });
+
+            Xamarin.Forms.MessagingCenter.Subscribe<MainViewModel, CustomerModel>(this, "UpdatedRecord", (sender, arg) =>
+           {
+               List<CustomerModel> list = new List<CustomerModel>();
+
+               for (int i = 0; i < Customers.Count; i++)
+               {
+                   if (Customers[i].Id == arg.Id)
+                   {
+                       Customers[i] = arg;
+                   }
+
+                   list.Add(Customers[i]);
+               }
+
+               Customers.Sort( list, orderby);
+
+               //Customers.Remove(arg);
+               //Customers.Add(arg);
+               //await FillList();
+           });
+
+            Xamarin.Forms.MessagingCenter.Subscribe<MainViewModel, CustomerModel>(this, "DeletedRecord", (sender, arg) =>
+          {
+              Customers.Remove(arg);
+              // await FillList();
+          });
+
+
         }
 
         //private async void CreataSampleDataExecute()
@@ -131,7 +173,7 @@ namespace AppSQLite.ViewModels
         {
             //NavigationService.Instance.NavigateTo<NewCustomerViewModel>();
             //NavigationService.Instance.NavigateTo<CustomerViewModel>(new CustomerViewModel(){ IsEditing=false});
-            NavigationService.Instance.NavigateTo<CustomerViewModel>(new CustomerViewModel() { EnableDelete = false } );
+            NavigationService.Instance.NavigateTo<CustomerViewModel>(new CustomerViewModel() { EnableDelete = false });
         }
 
         private async void OnFilterExecute()
@@ -139,8 +181,9 @@ namespace AppSQLite.ViewModels
             await FillList();
         }
 
-        private async Task FillList()
+        public async Task FillList()
         {
+            IsRunning = true;
             var records = await GetCustomers();
             if (!string.IsNullOrEmpty(Filter))
             {
@@ -150,6 +193,7 @@ namespace AppSQLite.ViewModels
             }
 
             Customers.Sort(records, orderby);
+            IsRunning = false;
         }
 
         private async Task<List<CustomerModel>> GetCustomers()
@@ -176,6 +220,6 @@ namespace AppSQLite.ViewModels
 
             return collectionModel;
         }
- 
+
     }
 }

@@ -102,6 +102,8 @@ namespace AppSQLite.ViewModels
             {
                 //-> Validate
 
+                string action = (Customer.Id == 0) ? "AddedRecord" : "UpdatedRecord";
+
                 Customer entity = new Customer()
                 {
                     DateBirth = Customer.DateBirth,
@@ -120,7 +122,7 @@ namespace AppSQLite.ViewModels
                 //NavigationService.Instance.NavigateBack();
 
                 //--> Send notification    
-                Xamarin.Forms.MessagingCenter.Send(new MainViewModel(), "Change");
+                Xamarin.Forms.MessagingCenter.Send(new MainViewModel(), action, Customer );
                 NavigationService.Instance.NavigateBack();
                 //NavigationService.Instance.NavigateTo<MainViewModel>();
             }
@@ -153,8 +155,11 @@ namespace AppSQLite.ViewModels
                 await DialogService.Instance.ShowMessage(OperacionSuccesTitle, DeleteSucess);
 
                 //->Redirect to MainView. requiere Message Center implements
-                //NavigationService.Instance.NavigateBack();
-                NavigationService.Instance.NavigateTo<MainViewModel>();
+                
+               // NavigationService.Instance.NavigateTo<MainViewModel>();
+
+                Xamarin.Forms.MessagingCenter.Send(new MainViewModel(), "DeletedRecord", Customer);
+                NavigationService.Instance.NavigateBack();
             }
             catch (Exception ex)
             {
