@@ -48,7 +48,7 @@
     <Compile Include="Services\Navigation\NavigationService.cs" />
     <Compile Include="Services\Storage\DataBaseManager.cs" />
     <Compile Include="Services\Storage\IDataService.cs" />
-    <Compile Include="Entities\Base\IEntityBase.cs" />
+    <Compile Include="Entities\Base\EntityBase.cs" />
     <Compile Include="Services\Storage\ISQLiteConnection.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

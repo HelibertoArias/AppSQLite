@@ -121,6 +121,8 @@ namespace AppSQLite.ViewModels
                 //->Redirect to MainView. requiere Message Center implements
                 //NavigationService.Instance.NavigateBack();
 
+                Customer.Id = entity.Id;/*Get new id if is new*/
+
                 //--> Send notification    
                 Xamarin.Forms.MessagingCenter.Send(new MainViewModel(), action, Customer );
                 NavigationService.Instance.NavigateBack();

@@ -36,7 +36,7 @@ namespace AppSQLite.Services.Storage
             }
         }
 
-        public Task SaveOrUpdate<T>(T value) where T : IEntityBase, new()
+        public Task SaveOrUpdate<T>(T value) where T : EntityBase, new()
         {
             lock (thisLock)
             {
@@ -51,7 +51,7 @@ namespace AppSQLite.Services.Storage
             }
         }
 
-        public Task Delete<T>(T value) where T : IEntityBase, new()
+        public Task Delete<T>(T value) where T : EntityBase, new()
         {
             lock (thisLock)
             {
@@ -59,7 +59,7 @@ namespace AppSQLite.Services.Storage
             }
         }
 
-        public Task<List<T>> GetAll<T>() where T : IEntityBase, new()
+        public Task<List<T>> GetAll<T>() where T : EntityBase, new()
         {
             lock (thisLock)
             {
@@ -67,7 +67,7 @@ namespace AppSQLite.Services.Storage
             }
         }
 
-        public Task<T> GetItem<T>(int id) where T : IEntityBase, new()
+        public Task<T> GetItem<T>(int id) where T : EntityBase, new()
         {
             lock (thisLock)
             {

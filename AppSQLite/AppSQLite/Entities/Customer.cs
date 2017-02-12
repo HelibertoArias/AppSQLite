@@ -1,14 +1,10 @@
 ﻿using AppSQLite.Entities.Base;
-using SQLite;
 using System;
 
 namespace AppSQLite.Entities
 {
-    public class Customer : IEntityBase
+    public class Customer : EntityBase
     {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
-
         public DateTime DateBirth { get; set; }
 
         public int DocumentNumber { get; set; }
