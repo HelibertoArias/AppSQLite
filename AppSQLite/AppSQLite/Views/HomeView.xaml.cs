@@ -2,9 +2,9 @@
 
 namespace AppSQLite.Views
 {
-    public partial class MainView : MasterDetailPage
+    public partial class HomeView : ContentPage
     {
-        public MainView()
+        public HomeView()
         {
             InitializeComponent();
         }

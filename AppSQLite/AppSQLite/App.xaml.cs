@@ -1,5 +1,7 @@
 ﻿using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
+//[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace AppSQLite
 {
     public partial class App : Application
@@ -10,7 +12,8 @@ namespace AppSQLite
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new Views.CustomerListView());
+            // MainPage = new NavigationPage(new Views.MainView());
+            MainPage =  new Views.MainView() ;
         }
 
         #endregion Constructor
