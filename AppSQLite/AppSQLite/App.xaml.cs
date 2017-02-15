@@ -13,7 +13,8 @@ namespace AppSQLite
             InitializeComponent();
 
             // MainPage = new NavigationPage(new Views.MainView());
-            MainPage =  new Views.MainView() ;
+            // MainPage =  new Views.MainView() ;
+            MainPage = new NavigationPage(new Views.CustomerListView());
         }
 
         #endregion Constructor

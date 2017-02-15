@@ -28,6 +28,8 @@ namespace AppSQLite.ViewModels
 
         public ICommand _searchCustomerCommand { get; set; }
 
+        public ICommand _refreshListCommand { get; set; }
+
         #endregion Attributes
 
         #region Properties
@@ -55,7 +57,12 @@ namespace AppSQLite.ViewModels
 
         public ICommand SearchCustomerCommand { get { return _searchCustomerCommand = _searchCustomerCommand ?? new Command(OnFilterExecute); } }
 
+        public ICommand RefreshListCommand { get { return _refreshListCommand = _refreshListCommand ?? new Command(RefreshListExecute); } }
         #endregion Commands
+
+
+
+
 
         public CustomerListViewModel()
         {
@@ -106,48 +113,48 @@ namespace AppSQLite.ViewModels
             });
         }
 
-        //private async void CreataSampleDataExecute()
-        //{
-        //    string[] firstNames = { "Jóse", "María", "Luís", "Lucas", "Matías", "Martín", "Lucho", "Josefa", "Karen", "Kate", "Pedro", "Marcho", "Yose", "Carlos", "Jaime", "Francisco", "Alfonso", "Ricardo", "Yuri", "Estafanni" };
+        private async Task CreataSampleDataExecute()
+        {
+            string[] firstNames = { "Jóse", "María", "Luís", "Lucas", "Matías", "Martín", "Lucho", "Josefa", "Karen", "Kate", "Pedro", "Marcho", "Yose", "Carlos", "Jaime", "Francisco", "Alfonso", "Ricardo", "Yuri", "Estafanni" };
 
-        //    string[] lastNames = { "Cucunubá", "Coronado", "Arias", "Balaguera", "Grísales", "Fuentes", "Lopéz", "Galán", "Baños", "Piedrahita", "Granados" };
+            string[] lastNames = { "Cucunubá", "Coronado", "Arias", "Balaguera", "Grísales", "Fuentes", "Lopéz", "Galán", "Baños", "Piedrahita", "Granados" };
 
-        //    int firstNamesLength = firstNames.Length - 1;
-        //    int lastNameLength = lastNames.Length - 1;
+            int firstNamesLength = firstNames.Length - 1;
+            int lastNameLength = lastNames.Length - 1;
 
-        //    Random rdn = new Random(DateTime.Now.Millisecond);
+            Random rdn = new Random(DateTime.Now.Millisecond);
 
-        //    int i = 0;
+            int i = 0;
 
-        //    while (i < 3)
-        //    {
-        //        var customer = new Customer
-        //        {
-        //            FirstName = firstNames[rdn.Next(0, firstNamesLength)],
-        //            LastName = $"{lastNames[rdn.Next(0, lastNameLength)]} {lastNames[rdn.Next(0, lastNameLength)]}"
-        //        };
+            while (i < 1)
+            {
+                var customer = new Customer
+                {
+                    FirstName = firstNames[rdn.Next(0, firstNamesLength)],
+                    LastName = $"{lastNames[rdn.Next(0, lastNameLength)]} {lastNames[rdn.Next(0, lastNameLength)]}"
+                };
 
-        //        var rowsQuery = await GetCustomers();
+                var rowsQuery = await GetCustomers();
 
-        //        var existe = rowsQuery.Any(x => x.FirstName.Equals(customer.FirstName)
-        //                                     && x.LastName.Equals(customer.LastName));
+                var existe = rowsQuery.Any(x => x.FirstName.Equals(customer.FirstName)
+                                             && x.LastName.Equals(customer.LastName));
 
-        //        if (!existe)
-        //        {
-        //            IsRunning = true;
+                if (!existe)
+                {
+                    //IsRunning = true;
 
-        //            await DataBaseManager.Instance.SaveOrUpdate(customer);
+                    DataBaseManager.Instance.SaveOrUpdate(customer).Wait();
 
-        //            rowsQuery = await GetCustomers();
+                   // rowsQuery = await GetCustomers();
 
-        //            Customers.Sort(rowsQuery, orderby);
+                   // Customers.Sort(rowsQuery, orderby);
 
-        //            await Task.Delay(1500);
-        //            i++;
-        //            IsRunning = false;
-        //        }
-        //    }
-        //}
+                    //await Task.Delay(1500);
+                    i++;
+                   // IsRunning = false;
+                }
+            }
+        }
 
         private void NewCustomerNavigationExecute()
         {
@@ -161,6 +168,14 @@ namespace AppSQLite.ViewModels
             await FillList();
         }
 
+        private async void RefreshListExecute()
+        {
+            
+            await CreataSampleDataExecute();
+            await FillList();
+            
+        }
+
         public async Task FillList()
         {
             IsRunning = true;
@@ -172,9 +187,11 @@ namespace AppSQLite.ViewModels
                                .ToList();
             }
 
-            Customers.Sort(records, orderby);
+            Customers.Sort(records, orderby) ;
+
             IsRunning = false;
         }
+
 
         private async Task<List<CustomerModel>> GetCustomers()
         {

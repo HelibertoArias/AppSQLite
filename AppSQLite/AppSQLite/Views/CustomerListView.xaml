@@ -12,7 +12,7 @@
   </ContentPage.BindingContext>
 
   <StackLayout>
-    
+
     <SearchBar
       Placeholder="Buscar..."
       Text="{Binding Filter, Mode=TwoWay}"
@@ -23,12 +23,16 @@
       Enable only if want a intial populate-->
     <!--<Button Text="Cargar clientes" Command="{Binding CreataSampleDataCommand}" />-->
 
-    <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}" />
+    <!-- Using ListView indicators
+        <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}" />-->
 
     <ListView
       x:Name="listView"
       ItemsSource="{Binding Customers}"
-      HasUnevenRows="True">
+      HasUnevenRows="True"
+      IsPullToRefreshEnabled="True"
+      RefreshCommand="{Binding RefreshListCommand}"
+      IsRefreshing="{Binding IsRunning}">
 
       <ListView.ItemTemplate>
         <DataTemplate>
