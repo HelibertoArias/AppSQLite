@@ -14,6 +14,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppSQLite.Droid", "AppSQLit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppSQLite.iOS", "AppSQLite\AppSQLite.iOS\AppSQLite.iOS.csproj", "{8AADACDB-6828-4C9F-853B-F1530D9509B1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{2933FDB1-3124-4924-BFC0-AC1E8A329708}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{72171A21-8EE2-48C9-B682-11030FB242BE}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\images\Screenshot_configuracion_guardado.png = Documentation\images\Screenshot_configuracion_guardado.png
+		Documentation\images\Screenshot_confirmacion_eliminar.png = Documentation\images\Screenshot_confirmacion_eliminar.png
+		Documentation\images\Screenshot_editar_cliente.png = Documentation\images\Screenshot_editar_cliente.png
+		Documentation\images\Screenshot_list.png = Documentation\images\Screenshot_list.png
+		Documentation\images\Screenshot_list_filtered.png = Documentation\images\Screenshot_list_filtered.png
+		Documentation\images\Screenshot_loader.png = Documentation\images\Screenshot_loader.png
+		Documentation\images\Screenshot_nuevo_cliente.png = Documentation\images\Screenshot_nuevo_cliente.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -197,5 +210,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{72171A21-8EE2-48C9-B682-11030FB242BE} = {2933FDB1-3124-4924-BFC0-AC1E8A329708}
 	EndGlobalSection
 EndGlobal
