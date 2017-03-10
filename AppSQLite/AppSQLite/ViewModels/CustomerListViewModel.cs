@@ -1,6 +1,7 @@
 ﻿using AppSQLite.Entities;
 using AppSQLite.Helpers;
 using AppSQLite.Models;
+using AppSQLite.Services.Dialog;
 using AppSQLite.Services.Navigation;
 using AppSQLite.Services.Storage;
 using AppSQLite.ViewModels.Base;
@@ -30,6 +31,8 @@ namespace AppSQLite.ViewModels
 
         public ICommand _refreshListCommand { get; set; }
 
+        public ICommand _selectedItemCommand { get; set; }
+
         #endregion Attributes
 
         #region Properties
@@ -58,6 +61,9 @@ namespace AppSQLite.ViewModels
         public ICommand SearchCustomerCommand { get { return _searchCustomerCommand = _searchCustomerCommand ?? new Command(OnFilterExecute); } }
 
         public ICommand RefreshListCommand { get { return _refreshListCommand = _refreshListCommand ?? new Command(RefreshListExecute); } }
+
+        public ICommand SelectedItemCommand { get { return _selectedItemCommand = _selectedItemCommand ?? new Command(SelectedItemExecute); } }
+        
         #endregion Commands
 
 
@@ -192,6 +198,11 @@ namespace AppSQLite.ViewModels
             IsRunning = false;
         }
 
+        private async void SelectedItemExecute()
+        {
+         await   DialogService.Instance.ShowMessage("hello", "here");
+
+        }
 
         private async Task<List<CustomerModel>> GetCustomers()
         {
