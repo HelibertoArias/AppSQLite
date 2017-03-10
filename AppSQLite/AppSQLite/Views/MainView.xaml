@@ -5,18 +5,15 @@
              xmlns:local="clr-namespace:AppSQLite.Views;assembly=AppSQLite"
              Title="MainView">
 
+    <MasterDetailPage.Master>
+        <local:MasterView x:Name="masterView" />
+    </MasterDetailPage.Master>
 
-  <MasterDetailPage.Master>
-    <local:MasterView x:Name="masterView" />
-  </MasterDetailPage.Master>
-  
-  <MasterDetailPage.Detail>
-    <NavigationPage>
-      <x:Arguments>
-        <local:HomeView/>
-      </x:Arguments>
-    </NavigationPage>
-  </MasterDetailPage.Detail>
-
+    <MasterDetailPage.Detail>
+        <NavigationPage>
+            <x:Arguments>
+                <local:HomeView />
+            </x:Arguments>
+        </NavigationPage>
+    </MasterDetailPage.Detail>
 </MasterDetailPage>
-

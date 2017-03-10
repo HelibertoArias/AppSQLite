@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace AppSQLite.Helpers
 {
@@ -21,12 +20,6 @@ namespace AppSQLite.Helpers
 
             foreach (var sortedItem in sortedList)
                 source.Add(sortedItem);
-
-            
         }
-
-      
-
-
     }
 }

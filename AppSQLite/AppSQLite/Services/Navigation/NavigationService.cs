@@ -10,7 +10,9 @@ namespace AppSQLite.Services.Navigation
     {
         private static NavigationService _instance;
 
-        private NavigationService() { }
+        private NavigationService()
+        {
+        }
 
         private IDictionary<Type, Type> viewModelRouting = new Dictionary<Type, Type>()
         {
@@ -44,7 +46,6 @@ namespace AppSQLite.Services.Navigation
                 page = Activator.CreateInstance(pageType) as Page;
             else
                 page = Activator.CreateInstance(pageType, navigationContext) as Page;
-            
 
             if (page != null)
                 Application.Current.MainPage.Navigation.PushAsync(page);
@@ -63,7 +64,6 @@ namespace AppSQLite.Services.Navigation
         {
             Application.Current.MainPage.Navigation.PopToRootAsync();
         }
-
 
         public void NavigateBack()
         {

@@ -63,12 +63,8 @@ namespace AppSQLite.ViewModels
         public ICommand RefreshListCommand { get { return _refreshListCommand = _refreshListCommand ?? new Command(RefreshListExecute); } }
 
         public ICommand SelectedItemCommand { get { return _selectedItemCommand = _selectedItemCommand ?? new Command(SelectedItemExecute); } }
-        
+
         #endregion Commands
-
-
-
-
 
         public CustomerListViewModel()
         {
@@ -151,13 +147,13 @@ namespace AppSQLite.ViewModels
 
                     DataBaseManager.Instance.SaveOrUpdate(customer).Wait();
 
-                   // rowsQuery = await GetCustomers();
+                    // rowsQuery = await GetCustomers();
 
-                   // Customers.Sort(rowsQuery, orderby);
+                    // Customers.Sort(rowsQuery, orderby);
 
                     //await Task.Delay(1500);
                     i++;
-                   // IsRunning = false;
+                    // IsRunning = false;
                 }
             }
         }
@@ -176,10 +172,8 @@ namespace AppSQLite.ViewModels
 
         private async void RefreshListExecute()
         {
-            
             await CreataSampleDataExecute();
             await FillList();
-            
         }
 
         public async Task FillList()
@@ -193,15 +187,14 @@ namespace AppSQLite.ViewModels
                                .ToList();
             }
 
-            Customers.Sort(records, orderby) ;
+            Customers.Sort(records, orderby);
 
             IsRunning = false;
         }
 
         private async void SelectedItemExecute()
         {
-         await   DialogService.Instance.ShowMessage("hello", "here");
-
+            await DialogService.Instance.ShowMessage("hello", "here");
         }
 
         private async Task<List<CustomerModel>> GetCustomers()

@@ -6,74 +6,72 @@
              xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              Title="Lista de clientes">
 
+    <ContentPage.BindingContext>
+        <local:CustomerListViewModel />
+    </ContentPage.BindingContext>
 
-  <ContentPage.BindingContext>
-    <local:CustomerListViewModel />
-  </ContentPage.BindingContext>
+    <StackLayout>
 
-  <StackLayout>
+       
+            <SearchBar 
+                  Placeholder="Buscar..."
+                  Text="{Binding Filter, Mode=TwoWay}"
+                  SearchCommand="{Binding SearchCustomerCommand}" >
+            </SearchBar>
+             
 
-    <SearchBar
-      Placeholder="Buscar..."
-      Text="{Binding Filter, Mode=TwoWay}"
-      SearchCommand="{Binding SearchCustomerCommand}">
-    </SearchBar>
 
-    <!--
+        <!--
       Enable only if want a intial populate-->
-    <!--<Button Text="Cargar clientes" Command="{Binding CreataSampleDataCommand}" />-->
+        <!--<Button Text="Cargar clientes" Command="{Binding CreataSampleDataCommand}" />-->
 
-    <!-- Using ListView indicators
+        <!-- Using ListView indicators
         <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}" />-->
 
-    <ListView
+        <ListView
       x:Name="listView"
       ItemsSource="{Binding Customers}"
       HasUnevenRows="True"
       IsPullToRefreshEnabled="True"
       RefreshCommand="{Binding RefreshListCommand}"
-      IsRefreshing="{Binding IsRunning}"
-      >
+      IsRefreshing="{Binding IsRunning}">
 
-      <ListView.ItemTemplate>
-        <DataTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate>
 
-          <ViewCell>
-            <Grid  Padding="10" RowSpacing="10" ColumnSpacing="5">
-              <!--<Grid.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding SelectCommand}"/>
+                    <ViewCell>
+                        <Grid  Padding="10" RowSpacing="10" ColumnSpacing="5">
+                            <!--<Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SelectCommand}" />
               </Grid.GestureRecognizers>-->
 
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-              </Grid.ColumnDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
 
-              <controls:CircleImage
+                            <controls:CircleImage
                 Source="{Binding Thumbnail}"
                 HeightRequest="50"
                 HorizontalOptions="CenterAndExpand"
                 Aspect="AspectFill"
-                WidthRequest="50"/>
+                WidthRequest="50" />
 
-              <StackLayout Grid.Column="1">
+                            <StackLayout Grid.Column="1">
 
-                <Label
+                                <Label
                   VerticalOptions="Center"
-                  Text="{Binding LastName}"/>
+                  Text="{Binding LastName}" />
 
-                <Label
+                                <Label
                   VerticalOptions="Center"
                   Text="{Binding FirstName}"
-                  Opacity="0.6"/>
+                  Opacity="0.6" />
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell>
 
-
-
-              </StackLayout>
-            </Grid>
-          </ViewCell>
-
-          <!--
+                    <!--
                 Image-Text-subtext
                 <ImageCell
                     ImageSource="{Binding Thumbnail}"
@@ -82,7 +80,7 @@
                     Detail="{Binding FirstName}"
                     DetailColor="Gray" />-->
 
-          <!--
+                    <!--
           Use
             <TextCell Text="{Binding LastName}"
                     TextColor="Black"
@@ -101,14 +99,13 @@
               </StackLayout>
             </ViewCell.View>
           </ViewCell>-->
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-  </StackLayout>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 
-  <ContentPage.ToolbarItems>
-    <ToolbarItem Icon="ic_action_content_add_circle_outline"
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="ic_action_content_add_circle_outline"
       Command="{Binding NewCustomerNavigationCommand}" />
-  </ContentPage.ToolbarItems>
-
+    </ContentPage.ToolbarItems>
 </ContentPage>

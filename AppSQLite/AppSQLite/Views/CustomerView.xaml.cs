@@ -8,7 +8,7 @@ namespace AppSQLite.Views
         public CustomerView(CustomerViewModel model)
         {
             InitializeComponent();
-            
+
             BindingContext = model;
         }
     }

@@ -65,7 +65,6 @@ namespace AppSQLite.ViewModels
 
         public CustomerViewModel()
         {
-            
         }
 
         #region Command
@@ -78,8 +77,6 @@ namespace AppSQLite.ViewModels
 
         private async void SaveCommandExecute()
         {
-
-
             if (String.IsNullOrEmpty(Customer.FirstName) || string.IsNullOrWhiteSpace(Customer.FirstName))
             {
                 await DialogService.Instance.ShowMessage(ValidationTitle, ErrorFistNameValidation);
@@ -123,8 +120,8 @@ namespace AppSQLite.ViewModels
 
                 Customer.Id = entity.Id;/*Get new id if is new*/
 
-                //--> Send notification    
-                Xamarin.Forms.MessagingCenter.Send(new MainViewModel(), action, Customer );
+                //--> Send notification
+                Xamarin.Forms.MessagingCenter.Send(new MainViewModel(), action, Customer);
                 NavigationService.Instance.NavigateBack();
                 //NavigationService.Instance.NavigateTo<MainViewModel>();
             }
@@ -132,8 +129,6 @@ namespace AppSQLite.ViewModels
             {
                 await DialogService.Instance.ShowMessage(OperacionErrorTitle, $"{ErrorMessage} {ex.Message}");
             }
-
-           
         }
 
         private async void DeleteCommandExecute()
@@ -157,8 +152,8 @@ namespace AppSQLite.ViewModels
                 await DialogService.Instance.ShowMessage(OperacionSuccesTitle, DeleteSucess);
 
                 //->Redirect to MainView. requiere Message Center implements
-                
-               // NavigationService.Instance.NavigateTo<MainViewModel>();
+
+                // NavigationService.Instance.NavigateTo<MainViewModel>();
 
                 Xamarin.Forms.MessagingCenter.Send(new MainViewModel(), "DeletedRecord", Customer);
                 NavigationService.Instance.NavigateBack();

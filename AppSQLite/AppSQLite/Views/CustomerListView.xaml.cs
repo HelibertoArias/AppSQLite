@@ -1,11 +1,6 @@
 ﻿using AppSQLite.Models;
 using AppSQLite.Services.Navigation;
 using AppSQLite.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
@@ -17,7 +12,6 @@ namespace AppSQLite.Views
         {
             InitializeComponent();
 
-
             listView.ItemSelected += (sender, e) =>
             {
                 var item = e.SelectedItem as CustomerModel;
@@ -28,9 +22,7 @@ namespace AppSQLite.Views
                         Customer = item,
                         EnableDelete = true
                     });
-
             };
-
         }
     }
 }

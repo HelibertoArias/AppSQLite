@@ -40,6 +40,7 @@
     </Compile>
     <Compile Include="Constants.cs" />
     <Compile Include="Entities\Customer.cs" />
+    <Compile Include="Helpers\FontAwesome.cs" />
     <Compile Include="Helpers\ObservableCollectionHelper.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

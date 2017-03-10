@@ -1,7 +1,4 @@
 ﻿using AppSQLite.Entities;
-using AppSQLite.Services.Navigation;
-using AppSQLite.ViewModels;
-using Xamarin.Forms;
 
 namespace AppSQLite.Models
 {

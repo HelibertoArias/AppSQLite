@@ -16,7 +16,6 @@ namespace AppSQLite.ViewModels.Base
                 OnPropertyChanged();
             }
         }
-       
 
         public event PropertyChangedEventHandler PropertyChanged = delegate
         {

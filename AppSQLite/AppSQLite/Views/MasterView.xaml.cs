@@ -1,9 +1,5 @@
 ﻿using AppSQLite.Services.Navigation;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
@@ -24,11 +20,9 @@ namespace AppSQLite.Views
                 IconSource = "customer.png",
                 TargetType = typeof(CustomerListView)
             });
-            
 
             listView.ItemsSource = masterPageItems;
         }
-
 
         //void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         //{
