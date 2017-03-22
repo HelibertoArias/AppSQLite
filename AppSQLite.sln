@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E2931741-1FC9-45C9-AE3A-0F0F4BF38815}"
 	ProjectSection(SolutionItems) = preProject
-		nuget.config = nuget.config
+		readme.md = readme.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppSQLite", "AppSQLite\AppSQLite\AppSQLite.csproj", "{4DA39232-5B42-45E7-A9B9-AB667604D430}"
